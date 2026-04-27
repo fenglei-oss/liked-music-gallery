@@ -738,8 +738,11 @@ button, input { font: inherit; }
 .track-body { padding: 16px 16px 18px; flex: 1; display: flex; flex-direction: column; }
 .track h3 { margin: 0; font-size: 22px; line-height: 1.18; overflow-wrap: anywhere; }
 .meta { margin: 9px 0 0; color: var(--muted); line-height: 1.45; }
-.artist-bio { margin: 12px 0 0; line-height: 1.65; color: var(--moss); font-size: 13px; }
-.song-note { margin: 8px 0 0; padding: 10px 12px; line-height: 1.6; color: #40514d; font-size: 13px; background: rgba(134,169,156,.1); border-radius: 12px; border-left: 3px solid var(--sage); }
+.artist-bio { margin: 12px 0 0; line-height: 1.65; color: var(--moss); font-size: 13px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.song-note { margin: 8px 0 0; padding: 10px 12px; line-height: 1.6; color: #40514d; font-size: 13px; background: rgba(134,169,156,.1); border-radius: 12px; border-left: 3px solid var(--sage); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; cursor: pointer; position: relative; }
+.song-note:hover { -webkit-line-clamp: unset; overflow: visible; background: rgba(134,169,156,.2); z-index: 2; box-shadow: 0 8px 24px rgba(59,68,63,.15); }
+.song-note::after { content: ""; position: absolute; right: 8px; bottom: 4px; width: 28px; height: 18px; background: linear-gradient(90deg, transparent, rgba(134,169,156,.1) 60%); pointer-events: none; }
+.song-note:hover::after { display: none; }
 .play-link {
   display: inline-flex;
   align-items: center;
