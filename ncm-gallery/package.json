@@ -1,0 +1,16 @@
+{
+  "name": "ncm-gallery",
+  "version": "1.0.0",
+  "description": "网易云音乐个人歌单画廊生成器 - 登录你的账号，自动生成专属歌单页面",
+  "main": "index.js",
+  "bin": {
+    "ncm-gallery": "./index.js"
+  },
+  "scripts": {
+    "login": "node index.js login",
+    "build": "node index.js build",
+    "serve": "node index.js serve"
+  },
+  "keywords": ["netease", "cloud-music", "gallery", "playlist"],
+  "license": "MIT"
+}
