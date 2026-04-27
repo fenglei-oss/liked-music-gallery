@@ -624,10 +624,10 @@ button, input { font: inherit; }
   z-index: 0;
 }
 .cover-field img:hover {
-  transform: scale(1.55) rotateY(360deg);
-  box-shadow: 0 22px 50px rgba(44, 49, 47, .35), 0 0 0 6px rgba(201,223,230,.5);
+  transform: scale(3.1) rotateY(360deg);
+  box-shadow: 0 28px 60px rgba(44, 49, 47, .4), 0 0 0 6px rgba(201,223,230,.5);
   z-index: 10;
-  transition: transform .55s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease, z-index 0s;
+  transition: transform 2.8s cubic-bezier(.25,.1,.25,1), box-shadow .3s ease, z-index 0s;
 }
 .toolbar {
   position: sticky;
