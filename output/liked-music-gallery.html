@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>咖啡控雷恩喜欢的音乐</title>
+<style>
+:root {
+  color-scheme: light;
+  --ink: #24302f;
+  --muted: #667572;
+  --line: rgba(41, 57, 55, .13);
+  --paper: #f8f5ed;
+  --paper-2: #fffdf7;
+  --sage: #86a99c;
+  --moss: #49685e;
+  --coral: #d9785f;
+  --sky: #c9dfe6;
+  --butter: #f0d98d;
+  --shadow: 0 18px 45px rgba(59, 68, 63, .13);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Hiragino Sans GB", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+  color: var(--ink);
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.42) 1px, transparent 1px) 0 0 / 36px 36px,
+    linear-gradient(180deg, #f6f0df 0%, #f8f5ed 38%, #edf4f0 100%);
+  overflow-x: hidden;
+}
+button, input { font: inherit; }
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 70px; }
+.hero {
+  min-height: 620px;
+  display: grid;
+  grid-template-columns: minmax(0, .92fr) minmax(360px, 1.08fr);
+  gap: 34px;
+  align-items: center;
+  position: relative;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: -60px -22px -20px;
+  background:
+    radial-gradient(ellipse 80% 60% at 75% 50%, rgba(240,217,141,.18) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 70% at 25% 40%, rgba(201,223,230,.15) 0%, transparent 55%),
+    radial-gradient(circle at 85% 30%, rgba(217,120,95,.08) 0%, transparent 45%);
+  pointer-events: none;
+  z-index: -1;
+  border-radius: 48px;
+}
+.hero .deco-ring {
+  position: absolute;
+  right: 5%;
+  top: 10%;
+  width: clamp(180px, 22vw, 320px);
+  aspect-ratio: 1;
+  border: 2px dashed rgba(73,104,94,.12);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+  animation: rotate 60s linear infinite;
+}
+.hero .deco-ring:nth-child(2) {
+  right: 12%;
+  top: 18%;
+  width: clamp(120px, 16vw, 220px);
+  border-color: rgba(217,120,95,.1);
+  animation-duration: 80s;
+  animation-direction: reverse;
+}
+@keyframes rotate { to { transform: rotate(360deg); } }
+.hero .deco-dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(134,169,156,.28);
+  pointer-events: none;
+  z-index: -1;
+}
+.hero-copy { padding: 28px 0; }
+.eyebrow {
+  width: fit-content;
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255,255,255,.52);
+  color: var(--moss);
+  font-size: 13px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.brand-title {
+  position: relative;
+  margin: 22px 0 18px;
+  font-size: clamp(48px, 7vw, 88px);
+  line-height: .96;
+  letter-spacing: 0;
+  max-width: 820px;
+  overflow-wrap: anywhere;
+}
+.brand-title::before {
+  content: "LIKED / 189";
+  display: block;
+  width: fit-content;
+  margin-bottom: 12px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #24302f;
+  color: #fffdf7;
+  font-size: 13px;
+  line-height: 1;
+  letter-spacing: .12em;
+}
+.brand-title span {
+  display: block;
+  width: fit-content;
+  padding-right: .08em;
+  text-shadow: 6px 6px 0 rgba(134, 169, 156, .22);
+}
+.brand-title span:last-child {
+  position: relative;
+  color: var(--moss);
+}
+.brand-title span:last-child::after {
+  content: "";
+  position: absolute;
+  left: .02em;
+  right: -.04em;
+  bottom: .04em;
+  height: .16em;
+  border-radius: 999px;
+  background: rgba(217, 120, 95, .42);
+  z-index: -1;
+}
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  max-width: 620px;
+}
+.stat {
+  min-height: 86px;
+  padding: 15px 16px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255,255,255,.58);
+}
+.stat strong { display: block; font-size: 30px; line-height: 1; }
+.stat span { display: block; margin-top: 8px; font-size: 13px; color: var(--muted); }
+.cover-field {
+  position: relative;
+  min-height: 520px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  align-content: center;
+  transform: rotate(-2deg);
+}
+.cover-field::before {
+  content: "";
+  position: absolute;
+  inset: 7% 2% 10% 4%;
+  border-radius: 42px;
+  background: rgba(255,255,255,.5);
+  filter: blur(2px);
+  z-index: -1;
+}
+.cover-field img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 10px 22px rgba(44, 49, 47, .16);
+}
+.cover-field img:nth-child(5n) { transform: translateY(18px) rotate(3deg); }
+.cover-field img:nth-child(7n) { transform: translateY(-16px) rotate(-3deg); }
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: grid;
+  gap: 16px;
+  padding: 16px 0 20px;
+  background: linear-gradient(180deg, rgba(248,245,237,.97), rgba(248,245,237,.84));
+  backdrop-filter: blur(16px);
+}
+.controls {
+  display: grid;
+  grid-template-columns: minmax(230px, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+}
+.search {
+  width: 100%;
+  height: 48px;
+  padding: 0 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255,255,255,.72);
+  color: var(--ink);
+  outline: none;
+}
+.search:focus { border-color: rgba(73, 104, 94, .55); box-shadow: 0 0 0 4px rgba(134,169,156,.18); }
+.view-toggle {
+  display: flex;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255,255,255,.66);
+}
+.view-toggle button, .chips button {
+  border: 0;
+  color: var(--moss);
+  background: transparent;
+  cursor: pointer;
+}
+.view-toggle button {
+  min-width: 78px;
+  height: 38px;
+  border-radius: 999px;
+}
+.view-toggle button.active { background: var(--moss); color: white; }
+.chips {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 3px;
+}
+.chips button {
+  flex: 0 0 auto;
+  min-height: 36px;
+  padding: 0 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255,255,255,.6);
+  white-space: nowrap;
+}
+.chips button.active { background: #24302f; color: #fffdf7; border-color: #24302f; }
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: end;
+  margin: 16px 0 18px;
+}
+.section-title h2 { margin: 0; font-size: 28px; }
+.section-title p { margin: 0; color: var(--muted); }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+.track {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: rgba(255,253,247,.74);
+  box-shadow: 0 8px 24px rgba(59, 68, 63, .08);
+  overflow: hidden;
+}
+.track-cover {
+  position: relative;
+  aspect-ratio: 1.12;
+  background: linear-gradient(135deg, var(--sky), var(--butter));
+}
+.track-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.track-cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 45%, rgba(0,0,0,.36));
+}
+.track-index {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  z-index: 1;
+  color: #fffdf7;
+  font-size: 13px;
+}
+.track-body { padding: 16px 16px 18px; flex: 1; display: flex; flex-direction: column; }
+.track h3 { margin: 0; font-size: 22px; line-height: 1.18; overflow-wrap: anywhere; }
+.meta { margin: 9px 0 0; color: var(--muted); line-height: 1.45; }
+.artist-bio { margin: 12px 0 0; line-height: 1.65; color: var(--moss); font-size: 13px; }
+.song-note { margin: 8px 0 0; padding: 10px 12px; line-height: 1.6; color: #40514d; font-size: 13px; background: rgba(134,169,156,.1); border-radius: 12px; border-left: 3px solid var(--sage); }
+.play-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+  padding: 0 12px 0 10px;
+  border: 1px solid rgba(255, 253, 247, .72);
+  border-radius: 999px;
+  background: rgba(255, 253, 247, .86);
+  color: #24302f;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 10px 24px rgba(20, 26, 24, .18);
+  backdrop-filter: blur(12px);
+  transition: transform .16s ease, background .16s ease, color .16s ease;
+}
+.track-cover .play-link {
+  position: absolute;
+  left: 12px;
+  bottom: 10px;
+  z-index: 2;
+}
+.play-link::before {
+  content: "▶";
+  font-size: 11px;
+  line-height: 1;
+}
+.play-link:hover {
+  transform: translateY(-1px);
+  background: var(--moss);
+  color: #fffdf7;
+}
+.play-link:focus-visible {
+  outline: 3px solid rgba(217, 120, 95, .34);
+  outline-offset: 3px;
+}
+.list .grid { display: flex; flex-direction: column; gap: 9px; }
+.list .track {
+  display: grid;
+  grid-template-columns: 74px 1fr auto;
+  align-items: center;
+  border-radius: 18px;
+  box-shadow: none;
+}
+.list .track-cover { width: 74px; height: 74px; aspect-ratio: auto; }
+.list .track-cover::after { display: none; }
+.list .track-index {
+  position: static;
+  padding: 0 18px 0 8px;
+  color: var(--sage);
+}
+.list .track-body { padding: 10px 14px; }
+.list .track h3 { font-size: 18px; }
+.list .artist-bio { display: none; }
+.list .song-note { display: none; }
+.list .play-link {
+  left: 7px;
+  bottom: 7px;
+  min-height: 26px;
+  padding: 0 9px 0 8px;
+  font-size: 0;
+  gap: 0;
+}
+.list .play-link::before {
+  font-size: 10px;
+}
+.empty {
+  display: none;
+  padding: 54px 20px;
+  text-align: center;
+  border: 1px dashed var(--line);
+  border-radius: 24px;
+  color: var(--muted);
+}
+.no-results .empty { display: block; }
+.no-results .grid { display: none; }
+@media (max-width: 860px) {
+  .page { padding: 18px 14px 44px; }
+  .hero { grid-template-columns: 1fr; min-height: auto; gap: 16px; }
+  .hero-copy { min-width: 0; width: min(100%, 340px); max-width: 100%; overflow: hidden; }
+  .brand-title { max-width: 340px; font-size: 38px; line-height: 1.08; }
+  .brand-title span { display: block; }
+  .cover-field { min-height: auto; grid-template-columns: repeat(6, 1fr); order: -1; }
+  .cover-field img:nth-child(n+25) { display: none; }
+  .stats { grid-template-columns: 1fr; }
+  .controls { grid-template-columns: 1fr; }
+  .view-toggle { width: fit-content; }
+  .grid { grid-template-columns: 1fr; }
+  .toolbar { margin-left: -14px; margin-right: -14px; padding-left: 14px; padding-right: 14px; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <section class="hero">
+    <div class="deco-ring" aria-hidden="true"></div>
+    <div class="deco-ring" aria-hidden="true"></div>
+    <div class="hero-copy">
+      <div class="eyebrow">NetEase Cloud Collection</div>
+      <h1 class="brand-title"><span>咖啡控雷恩</span><span>喜欢的音乐</span></h1>
+      <div class="stats">
+
+
+
+        <div class="stat"><strong>189</strong><span>首歌曲</span></div>
+        <div class="stat"><strong>147</strong><span>位艺人</span></div>
+        <div class="stat"><strong>174</strong><span>张专辑/单曲</span></div>
+      </div>
+    </div>
+    <div class="cover-field" aria-hidden="true">
+      <img src="liked_music_covers/2594338.jpg" alt=""><img src="liked_music_covers/1761243.jpg" alt=""><img src="liked_music_covers/2508125.jpg" alt=""><img src="liked_music_covers/370003871.jpg" alt=""><img src="liked_music_covers/275822782.jpg" alt=""><img src="liked_music_covers/250920456.jpg" alt=""><img src="liked_music_covers/2649850.jpg" alt=""><img src="liked_music_covers/60904.jpg" alt=""><img src="liked_music_covers/35297469.jpg" alt=""><img src="liked_music_covers/326847.jpg" alt=""><img src="liked_music_covers/158733346.jpg" alt=""><img src="liked_music_covers/80347712.jpg" alt=""><img src="liked_music_covers/185428679.jpg" alt=""><img src="liked_music_covers/2077434.jpg" alt=""><img src="liked_music_covers/276388078.jpg" alt=""><img src="liked_music_covers/278380305.jpg" alt=""><img src="liked_music_covers/286787159.jpg" alt=""><img src="liked_music_covers/2087717.jpg" alt=""><img src="liked_music_covers/143797936.jpg" alt=""><img src="liked_music_covers/260392229.jpg" alt=""><img src="liked_music_covers/2091488.jpg" alt=""><img src="liked_music_covers/249145687.jpg" alt=""><img src="liked_music_covers/3054300.jpg" alt=""><img src="liked_music_covers/61654.jpg" alt=""><img src="liked_music_covers/178581927.jpg" alt=""><img src="liked_music_covers/193595524.jpg" alt=""><img src="liked_music_covers/194014591.jpg" alt=""><img src="liked_music_covers/168184496.jpg" alt=""><img src="liked_music_covers/3171504.jpg" alt=""><img src="liked_music_covers/156654023.jpg" alt=""><img src="liked_music_covers/2046644.jpg" alt=""><img src="liked_music_covers/286519136.jpg" alt=""><img src="liked_music_covers/65444.jpg" alt=""><img src="liked_music_covers/191179184.jpg" alt=""><img src="liked_music_covers/279675457.jpg" alt=""><img src="liked_music_covers/124898328.jpg" alt=""><img src="liked_music_covers/264836322.jpg" alt=""><img src="liked_music_covers/2087646.jpg" alt=""><img src="liked_music_covers/38188.jpg" alt=""><img src="liked_music_covers/1679518.jpg" alt=""><img src="liked_music_covers/37421891.jpg" alt=""><img src="liked_music_covers/399323.jpg" alt="">
+    </div>
+  </section>
+
+  <section class="toolbar" aria-label="筛选工具">
+    <div class="controls">
+      <input class="search" id="search" type="search" placeholder="搜索歌曲、艺人或专辑">
+      <div class="view-toggle" aria-label="视图切换">
+        <button class="active" data-view="cards" type="button">卡片</button>
+        <button data-view="list" type="button">列表</button>
+      </div>
+    </div>
+    <div class="chips" id="chips">
+      <button class="active" data-artist="" type="button">全部</button>
+      <button data-artist="Megumi Acorda" type="button">Megumi Acorda · 6</button><button data-artist="热斑Heat Mark" type="button">热斑Heat Mark · 6</button><button data-artist="東京酒吐座" type="button">東京酒吐座 · 5</button><button data-artist="she’s green" type="button">she’s green · 4</button><button data-artist="Slowdive" type="button">Slowdive · 4</button><button data-artist="The Cure" type="button">The Cure · 3</button><button data-artist="徐怀钰" type="button">徐怀钰 · 3</button><button data-artist="杨乃文" type="button">杨乃文 · 3</button><button data-artist="气象限定Quadrant" type="button">气象限定Quadrant · 3</button><button data-artist="CQ" type="button">CQ · 2</button><button data-artist="Fayzz" type="button">Fayzz · 2</button><button data-artist="Go with Strangers" type="button">Go with Strangers · 2</button><button data-artist="Heavenstamp" type="button">Heavenstamp · 2</button><button data-artist="honeydip" type="button">honeydip · 2</button><button data-artist="LITE" type="button">LITE · 2</button><button data-artist="Sonic Youth" type="button">Sonic Youth · 2</button><button data-artist="té" type="button">té · 2</button><button data-artist="Temples" type="button">Temples · 2</button>
+    </div>
+  </section>
+
+  <section id="library">
+    <div class="section-title">
+      <h2>曲目清单</h2>
+      <p id="result-count">189 首</p>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="empty">没有匹配到曲目，换个关键词试试。</div>
+  </section>
+</main>
+
+<script>
+const tracks = [{"index":1,"id":27221160,"title":"To the South","artists":["Motorama"],"artistText":"Motorama","album":"Calendar","albumId":2594338,"duration":"2:41","cover":"liked_music_covers/2594338.jpg","artistBio":"俄罗斯后朋克乐队，用冷冽贝斯线和朦胧旋律写出东欧式浪漫。","songNote":"俄罗斯后朋克乐队Motorama的代表作，来自专辑《Calendar》，主唱嗓音常与Ian Curtis相较，以冷峻贝斯线和忧郁旋律营造疏离感与向南而行的意象。"},{"index":2,"id":19204224,"title":"When the Sun Hits","artists":["Slowdive"],"artistText":"Slowdive","album":"Souvlaki","albumId":1761243,"duration":"4:48","cover":"liked_music_covers/1761243.jpg","artistBio":"英国盯鞋经典乐队，以漂浮音墙和柔软人声定义梦幻噪音美学。","songNote":"《When the Sun Hits》是 Slowdive 的代表作之一，也是盯鞋乐迷反复提起的经典瞬间。"},{"index":3,"id":26484759,"title":"Finger","artists":["大象体操"],"artistText":"大象体操","album":"平衡","albumId":2508125,"duration":"5:03","cover":"liked_music_covers/2508125.jpg","artistBio":"台湾数学摇滚乐团，擅长把灵巧节拍和清澈旋律编成细密结构。","songNote":"台湾数学摇滚乐队大象体操早期经典，出自首张专辑《平衡》，以贝斯为主线的器乐编排配合不规则复合节拍，展现三位成员精湛的数学摇滚美学。"},{"index":4,"id":3368042524,"title":"ALWAYS REMEMBER I LOVE YOU","artists":["Suede"],"artistText":"Suede","album":"ALWAYS REMEMBER I LOVE YOU","albumId":370003871,"duration":"3:36","cover":"liked_music_covers/370003871.jpg","artistBio":"英国 Britpop 代表乐队，华丽、颓美又带着戏剧化的摇滚锋芒。","songNote":"英国传奇英伦摇滚乐队Suede于2022年发行的单曲，Brett Anderson的嗓音依然充满戏剧张力，以直白的歌名传递关于爱与失去的深沉告白。"},{"index":5,"id":2717588324,"title":"果实","artists":["陈粒"],"artistText":"陈粒","album":"果实","albumId":275822782,"duration":"4:22","cover":"liked_music_covers/275822782.jpg","artistBio":"中国独立唱作人，以诗性歌词和松弛声线构建私人化叙事。","songNote":"陈粒后期作品中极具禅意的一首，以果实隐喻生命的沉淀与成熟，旋律简洁却余味悠长。"},{"index":6,"id":2637176107,"title":"Side of the Moon","artists":["Aisha Badru"],"artistText":"Aisha Badru","album":"The Sun Still Rises","albumId":250920456,"duration":"2:59","cover":"liked_music_covers/250920456.jpg","artistBio":"美国民谣创作者，声音温柔克制，作品带着自然与自省气息。","songNote":"美国创作歌手Aisha Badru的空灵民谣之作，歌曲延续其清新治愈风格，探讨在脆弱中寻找力量。"},{"index":7,"id":27632716,"title":"Silent Roar","artists":["東京酒吐座"],"artistText":"東京酒吐座","album":"Japan Shoegazer As Only One - EP","albumId":2649850,"duration":"4:56","cover":"liked_music_covers/2649850.jpg","artistBio":"日本盯鞋乐队，以厚重失真和迷幻旋律制造强烈音墙。","songNote":"日本盯鞋乐队東京酒吐座的代表曲目，以My Bloody Valentine式的厚实吉他音墙著称，营造出沉默的咆哮般的内爆式情绪张力。"},{"index":8,"id":635845,"title":"永遠の夏","artists":["岡村孝子"],"artistText":"岡村孝子","album":"四つ葉のクローバー","albumId":60904,"duration":"4:48","cover":"liked_music_covers/60904.jpg","artistBio":"日本流行女歌手，清亮声线里有昭和到平成的温柔抒情感。","songNote":"日本昭和时代创作歌手岡村孝子的经典J-Pop抒情曲，以透明感的嗓音和怀旧的夏日意象捕捉青春与离别的哀愁。"},{"index":9,"id":468738015,"title":"No Longer Making Time","artists":["Slowdive"],"artistText":"Slowdive","album":"Slowdive","albumId":35297469,"duration":"5:48","cover":"liked_music_covers/35297469.jpg","artistBio":"英国盯鞋经典乐队，以漂浮音墙和柔软人声定义梦幻噪音美学。","songNote":"英国盯鞋传奇Slowdive解散22年后于2017年复出同名专辑中的曲目，以更加成熟内敛的梦幻吉他音色宣告经典阵容的回归。"},{"index":10,"id":3229863,"title":"Hurley","artists":["Pinback"],"artistText":"Pinback","album":"Pinback","albumId":326847,"duration":"3:56","cover":"liked_music_covers/326847.jpg","artistBio":"美国独立摇滚乐队，以精巧贝斯和冷静旋律营造内敛张力。","songNote":"美国独立摇滚乐队 Pinback 同名专辑中的代表作，以层层叠加的吉他旋律和慵懒人声交织出独特的数学摇滚质感。"},{"index":11,"id":2016688503,"title":"是妈妈是女儿","artists":["黄绮珊","希林娜依高"],"artistText":"黄绮珊 / 希林娜依高","album":"是妈妈是女儿","albumId":158733346,"duration":"6:15","cover":"liked_music_covers/158733346.jpg","artistBio":"中国实力派女歌手，以宽广声场和强情绪表达见长。","songNote":"2023 年央视春晚经典对唱，黄绮珊与希林娜依高以母女对话形式演绎，细腻刻画了中国式母女之间深沉而内敛的情感羁绊。"},{"index":12,"id":1377394910,"title":"In Affliction","artists":["Yakui The Maid"],"artistText":"Yakui The Maid","album":"Goodnight World","albumId":80347712,"duration":"3:50","cover":"liked_music_covers/80347712.jpg","artistBio":"俄罗斯音乐人，maidcore代表之一，常以游戏感、碎拍和梦境质地组织电子与氛围声音。","songNote":"俄罗斯暗潮项目Yakui The Maid的作品，以减速的电子节拍、采样拼贴和幽暗氛围闻名，将互联网时代的孤独感与暗黑美学结合。"},{"index":13,"id":2124964810,"title":"melt","artists":["the neverminds"],"artistText":"the neverminds","album":"melt","albumId":185428679,"duration":"4:58","cover":"liked_music_covers/185428679.jpg","artistBio":"多伦多盯鞋/梦幻流行乐队，自制作并受MBV、Whirr等影响，声音明亮而带有噪音边缘。","songNote":""},{"index":14,"id":22655301,"title":"THE END OF SUMMER","artists":["COALTAR OF THE DEEPERS"],"artistText":"COALTAR OF THE DEEPERS","album":"NO THANK YOU","albumId":2077434,"duration":"5:54","cover":"liked_music_covers/2077434.jpg","artistBio":"日本另类摇滚名团，将盯鞋、金属和电子感混合成高密度声响。","songNote":"日本传奇盯鞋乐队 COALTAR OF THE DEEPERS 的代表曲目，融合厚重失真音墙与甜美旋律，是日系盯鞋的经典教科书级作品。"},{"index":15,"id":2719566483,"title":"little birds","artists":["she’s green"],"artistText":"she’s green","album":"chrysalis","albumId":276388078,"duration":"4:00","cover":"liked_music_covers/276388078.jpg","artistBio":"美国明尼阿波利斯梦幻流行/盯鞋乐队，旋律清澈，声音像薄雾里的吉他光晕。","songNote":"美国梦幻流行/盯鞋乐队shes green的代表作，以层层堆叠的吉他混响和慵懒哼唱营造如飞鸟般轻盈而迷离的听觉体验。"},{"index":16,"id":2726067581,"title":"Emo Is NOT a Genre","artists":["Huge Gap"],"artistText":"Huge Gap","album":"Emo Is NOT a Genre","albumId":278380305,"duration":"5:06","cover":"liked_music_covers/278380305.jpg","artistBio":"北京独立音乐人/计划，在中西部emo与独立摇滚之间保持青春期的锋利与松弛。","songNote":""},{"index":17,"id":2751093063,"title":"梅雨","artists":["ゲシュタルト乙女","京英一"],"artistText":"ゲシュタルト乙女 / 京英一","album":"梅雨","albumId":286787159,"duration":"3:51","cover":"liked_music_covers/286787159.jpg","artistBio":"台湾成员组成的日语独立乐队，融合数学摇滚的灵巧节拍与都市感的轻盈旋律。","songNote":"日台混血独立乐队ゲシュタルト乙女与京英一的合作曲，以潮湿绵密的器乐编织刻画东亚雨季特有的朦胧与思念。"},{"index":18,"id":22736682,"title":"シェルター","artists":["THE MUSMUS"],"artistText":"THE MUSMUS","album":"Memento","albumId":2087717,"duration":"3:40","cover":"liked_music_covers/2087717.jpg","artistBio":"日本另类摇滚乐队，旋律直接，现场感强烈。","songNote":"日本独立乐队THE MUSMUS的代表曲目，以青春感的旋律和细腻的吉他编排表达对庇护与归属的渴望。"},{"index":19,"id":1940232496,"title":"smile again","artists":["she’s green"],"artistText":"she’s green","album":"smile again","albumId":143797936,"duration":"3:55","cover":"liked_music_covers/143797936.jpg","artistBio":"美国明尼阿波利斯梦幻流行/盯鞋乐队，旋律清澈，声音像薄雾里的吉他光晕。","songNote":"shes green的梦幻之作，以柔和的吉他和声墙包裹温暖治愈的旋律，传递再次微笑的力量。"},{"index":20,"id":2668124242,"title":"世界赠予我的","artists":["王菲"],"artistText":"王菲","album":"世界赠予我的","albumId":260392229,"duration":"4:04","cover":"liked_music_covers/260392229.jpg","artistBio":"华语流行标志性歌手，空灵声线与先锋审美影响深远。","songNote":"王菲久违的新作，以标志性的空灵嗓音吟唱对世界的感恩与回馈，词曲皆淡然而深沉。"},{"index":21,"id":22767670,"title":"ニュータイプ理論","artists":["mudy on the 昨晩"],"artistText":"mudy on the 昨晩","album":"VOI","albumId":2091488,"duration":"4:43","cover":"liked_music_covers/2091488.jpg","artistBio":"日本数学摇滚乐队，以复杂节拍和锐利吉他线条推进情绪。","songNote":"日本器乐数学摇滚乐队mudy on the 昨晩的经典作品，以复杂多变的不规则节奏和精密的乐器对话著称。"},{"index":22,"id":2631306308,"title":"the girl","artists":["ヒメウズ（himeuzu）"],"artistText":"ヒメウズ（himeuzu）","album":"the girl","albumId":249145687,"duration":"4:16","cover":"liked_music_covers/249145687.jpg","artistBio":"日本独立音乐人/团体，作品偏梦幻、细腻且带私人气息。","songNote":""},{"index":23,"id":29600656,"title":"宿醉之星","artists":["琥珀"],"artistText":"琥珀","album":"宿醉之星","albumId":3054300,"duration":"7:42","cover":"liked_music_covers/3054300.jpg","artistBio":"西安后摇乐队，用长线条旋律和层叠吉他描摹辽阔情绪。","songNote":"西安后摇乐队琥珀的代表作，以器乐叙事描绘宿醉后仰望星空的迷幻与怅然，沉稳的吉他渐强层层推进至情绪爆发。"},{"index":24,"id":642871,"title":"歌舞伎町の女王","artists":["椎名林檎"],"artistText":"椎名林檎","album":"歌舞伎町の女王","albumId":61654,"duration":"2:51","cover":"liked_music_covers/61654.jpg","artistBio":"日本创作女歌手，将摇滚、爵士和歌舞伎式戏剧感融为一体。","songNote":"《歌舞伎町の女王》是椎名林檎的第二张单曲，她在实际造访歌舞伎町之前便凭想象写出了这首歌。"},{"index":25,"id":2097762670,"title":"Falling","artists":["Fayzz"],"artistText":"Fayzz","album":"Days Gone","albumId":178581927,"duration":"5:33","cover":"liked_music_covers/178581927.jpg","artistBio":"中国器乐/后摇乐队，以明亮旋律和宽广动态铺陈情绪。","songNote":"成都数学摇滚/器乐摇滚乐队 Fayzz 的作品，收录于专辑《Days Gone》，以精密吉他编曲与富于变化的节奏营造失重般下坠的听觉体验。"},{"index":26,"id":2149555918,"title":"夏日祭、唯我一人","artists":["天然味道"],"artistText":"天然味道","album":"少女终末旅行","albumId":193595524,"duration":"4:44","cover":"liked_music_covers/193595524.jpg","artistBio":"独立音乐计划，作品带有日系旋律和轻盈青春感。","songNote":"天然味道的作品，以夏日祭的意象勾勒独处的孤寂与青春的诗意，轻快节奏下暗藏淡淡的夏日忧伤。"},{"index":27,"id":2150753897,"title":"神様","artists":["ゲシュタルト乙女"],"artistText":"ゲシュタルト乙女","album":"神様","albumId":194014591,"duration":"3:27","cover":"liked_music_covers/194014591.jpg","artistBio":"台湾成员组成的日语独立乐队，融合数学摇滚的灵巧节拍与都市感的轻盈旋律。","songNote":"ゲシュタルト乙女的动人创作，以神様为主题探讨信仰、命运与情感的纠葛，编曲融合日系独立摇滚的细腻与叙事感。"},{"index":28,"id":2058064857,"title":"lakes","artists":["she’s green"],"artistText":"she’s green","album":"wisteria","albumId":168184496,"duration":"5:28","cover":"liked_music_covers/168184496.jpg","artistBio":"美国明尼阿波利斯梦幻流行/盯鞋乐队，旋律清澈，声音像薄雾里的吉他光晕。","songNote":"shes green的梦幻之作，以lakes隐喻内心深处的静谧与忧伤，将自然意象与情感流动融为一体。"},{"index":29,"id":32857073,"title":"Head Over Heels","artists":["Tears for Fears"],"artistText":"Tears for Fears","album":"Orphan Black (Original Television Soundtrack)","albumId":3171504,"duration":"4:17","cover":"liked_music_covers/3171504.jpg","artistBio":"英国新浪潮/流行摇滚组合，以大旋律和心理主题著称。","songNote":"《Head Over Heels》是 Tears for Fears 八十年代流行摇滚时期的代表曲之一。"},{"index":30,"id":2007060010,"title":"Bull Believer","artists":["Wednesday"],"artistText":"Wednesday","album":"Rat Saw God","albumId":156654023,"duration":"8:31","cover":"liked_music_covers/156654023.jpg","artistBio":"美国独立摇滚乐队，把乡村碎片、噪音吉他和情绪摇滚揉在一起。","songNote":"美国独立摇滚乐队Wednesday的突破性单曲，从安静民谣爆发为激烈噪音摇滚，被Pitchfork评为2023年度最佳歌曲之一。"},{"index":31,"id":22282040,"title":"Dreaming Of You","artists":["Selena Quintanilla"],"artistText":"Selena Quintanilla","album":"Dreaming of You","albumId":2046644,"duration":"5:15","cover":"liked_music_covers/2046644.jpg","artistBio":"Tejano 流行传奇歌手，明亮声线连接拉丁流行与主流听众。","songNote":"特哈诺音乐女王Selena Quintanilla的遗作之一，甜美梦幻的流行曲突破了拉丁音乐的边界，令全球乐迷为之惋惜。"},{"index":32,"id":2750258053,"title":"Task Kitty (Save Me)","artists":["Megumi Acorda"],"artistText":"Megumi Acorda","album":"Sun Blanket","albumId":286519136,"duration":"3:35","cover":"liked_music_covers/286519136.jpg","artistBio":"菲律宾梦幻流行/盯鞋音乐人，声音温柔而带有朦胧颗粒感。","songNote":"菲律宾梦幻流行音乐人Megumi Acorda的作品，以低保真吉他和柔软人声刻画猫咪般的慵懒与求救的双重意象。"},{"index":33,"id":677976,"title":"Good-bye My Loneliness","artists":["ZARD"],"artistText":"ZARD","album":"Good-bye My Loneliness","albumId":65444,"duration":"4:34","cover":"liked_music_covers/65444.jpg","artistBio":"日本流行摇滚代表，坂井泉水的清澈声线承载了时代记忆。","songNote":"《Good-bye My Loneliness》是 ZARD 的出道单曲，由坂井泉水作词、织田哲郎作曲，1991 年发行后开启了坂井泉水传奇的流行摇滚时代。"},{"index":34,"id":2142608746,"title":"Mimi","artists":["Wisp"],"artistText":"Wisp","album":"Pandora","albumId":191179184,"duration":"4:44","cover":"liked_music_covers/191179184.jpg","artistBio":"美国新生代盯鞋音乐人，以柔软人声和厚重吉他雾气走红。","songNote":""},{"index":35,"id":2730270719,"title":"Hollow","artists":["Fayzz"],"artistText":"Fayzz","album":"Patch","albumId":279675457,"duration":"6:00","cover":"liked_music_covers/279675457.jpg","artistBio":"中国器乐/后摇乐队，以明亮旋律和宽广动态铺陈情绪。","songNote":"成都数学摇滚乐队Fayzz的代表作，以精密的器乐编排和不规则的节奏结构在空灵与爆发之间切换自如。"},{"index":36,"id":1831469103,"title":"希望像星光一样闪烁","artists":["文雀"],"artistText":"文雀","album":"儿戏","albumId":124898328,"duration":"8:36","cover":"liked_music_covers/124898328.jpg","artistBio":"中国后摇乐队，用器乐叙事和层层递进的动态制造电影感。","songNote":"北京后摇乐队文雀的经典作品，以星光闪烁为意象构建器乐叙事，旋律层层递进至璀璨的情绪高潮。"},{"index":37,"id":2681408481,"title":"The Breakfast Club","artists":["honeydip"],"artistText":"honeydip","album":"groovy indian summer -Remastered-","albumId":264836322,"duration":"5:50","cover":"liked_music_covers/264836322.jpg","artistBio":"日本盯鞋/独立乐队，旋律甜美，吉他音色带九十年代质感。","songNote":"日本盯鞋乐队honeydip的作品，以经典电影《早餐俱乐部》命名，用绵密吉他音墙和怀旧氛围致敬青春与日本自赏音乐的黄金年代。"},{"index":38,"id":22736208,"title":"Les Enfants Du Paradis","artists":["world's end girlfriend"],"artistText":"world's end girlfriend","album":"Seven Idiots","albumId":2087646,"duration":"7:09","cover":"liked_music_covers/2087646.jpg","artistBio":"日本实验音乐人，把古典、电子和后摇拼贴成宏大叙事。","songNote":"《Les Enfants Du Paradis》出自 world's end girlfriend 的专辑《The Lie Lay Land》，曲名致敬法国电影《天堂的孩子》，融合古典弦乐与后摇。"},{"index":39,"id":385322,"title":"Lonely God","artists":["惘闻"],"artistText":"惘闻","album":"0.7","albumId":38188,"duration":"9:30","cover":"liked_music_covers/38188.jpg","artistBio":"大连后摇代表乐队，以克制铺陈和史诗动态记录时间感。","songNote":"《Lonely God》是中国后摇乐队惘闻的早期代表作之一，以层层递进的吉他音墙和沉静孤绝的氛围表达当代中国后摇的独特美学。"},{"index":40,"id":18298953,"title":"Arriving Somewhere But Not Here [2023 Remaster]","artists":["Porcupine Tree"],"artistText":"Porcupine Tree","album":"Deadwing","albumId":1679518,"duration":"12:02","cover":"liked_music_covers/1679518.jpg","artistBio":"英国前卫摇滚乐队，兼具复杂结构、金属质感与旋律表达。","songNote":"Porcupine Tree 前卫摇滚时期的史诗级长篇，从静谧的氛围铺陈逐渐推向爆裂的金属 riff，展现 Steven Wilson 编织声音叙事的高超功力。"},{"index":41,"id":533888370,"title":"Mortal Coil","artists":["God Is An Astronaut"],"artistText":"God Is An Astronaut","album":"Epitaph","albumId":37421891,"duration":"5:33","cover":"liked_music_covers/37421891.jpg","artistBio":"爱尔兰后摇乐队，以恢宏音墙和太空感旋律见长。","songNote":"爱尔兰后摇名团 God Is An Astronaut 的标志性作品，以钢琴与合成器构筑空灵氛围，逐渐引爆为恢弘的器乐风暴。"},{"index":42,"id":3947467,"title":"III","artists":["Athletics"],"artistText":"Athletics","album":"Who You Are Is Not Enough","albumId":399323,"duration":"6:10","cover":"liked_music_covers/399323.jpg","artistBio":"美国情绪后摇/后硬核乐队，作品真挚、爆发且充满拉扯感。","songNote":"美国后摇乐队 Athletics 的经典长篇，以渐进式的情感堆叠和精妙的动态变化著称，是后摇爱好者的必听曲目。"},{"index":43,"id":22687362,"title":"Infinite Mirror","artists":["LITE"],"artistText":"LITE","album":"Phantasia","albumId":2081461,"duration":"4:39","cover":"liked_music_covers/2081461.jpg","artistBio":"日本数学摇滚代表，演奏精准，律动复杂却保持流畅。","songNote":"日本数学摇滚乐队 LITE 的代表作之一，以复杂的奇数拍节奏和利落的吉他切分见长，展现日本数摇的精湛技艺。"},{"index":44,"id":2718374583,"title":"On My Surround（ft.The Claptraps）","artists":["迷失克莱因"],"artistText":"迷失克莱因","album":"On My Surround（ft.The Claptraps）","albumId":275982798,"duration":"6:24","cover":"liked_music_covers/275982798.jpg","artistBio":"中国独立/器乐乐队，以氛围铺陈和细腻吉他纹理见长。","songNote":"中国独立乐队迷失克莱因的作品，以迷幻吉他音色和内向型歌词探索现代城市生活中的疏离与自我迷失。"},{"index":45,"id":2731540197,"title":"White Horses","artists":["Wolf Alice"],"artistText":"Wolf Alice","album":"White Horses","albumId":280094195,"duration":"4:30","cover":"liked_music_covers/280094195.jpg","artistBio":"英国另类摇滚乐队，在噪音、梦幻流行和独立摇滚之间自由切换。","songNote":"英国另类摇滚乐队Wolf Alice出自专辑《Blue Weekend》，以空灵渐进的编曲展现柔美嗓音与爆发力的完美平衡。"},{"index":46,"id":2095816192,"title":"こわす","artists":["ひとひら"],"artistText":"ひとひら","album":"つくる","albumId":178143367,"duration":"4:40","cover":"liked_music_covers/178143367.jpg","artistBio":"东京 emo/独立摇滚乐队，声音直接而带有青涩的爆发力与中西部emo影响。","songNote":""},{"index":47,"id":1814770389,"title":"漫 天 星 空","artists":["海德薇乐队(THE HEDWIG)"],"artistText":"海德薇乐队(THE HEDWIG)","album":"眩晕俱乐部Vertigo Club","albumId":122043966,"duration":"3:23","cover":"liked_music_covers/122043966.jpg","artistBio":"中国独立摇滚乐队，旋律明亮，带有青春与都市感。","songNote":"海德薇乐队的作品，以浪漫的器乐编排描绘漫天星空的壮丽画面，融合后摇的宏大与独立流行的温柔。"},{"index":48,"id":440411023,"title":"魚の目シンパシー","artists":["ラブリーサマーちゃん"],"artistText":"ラブリーサマーちゃん","album":"LSC","albumId":34985279,"duration":"4:33","cover":"liked_music_covers/34985279.jpg","artistBio":"日本独立流行创作者，声音轻盈，旋律有夏日胶片感。","songNote":"日本独立流行音乐人ラブリーサマーちゃん的代表作，以低保真卧室流行融合俏皮电子元素，表达都市少女的细腻情感。"},{"index":49,"id":2659988575,"title":"好猫咪咪","artists":["周麟与少年宫遗事"],"artistText":"周麟与少年宫遗事","album":"好猫咪咪","albumId":257895487,"duration":"3:39","cover":"liked_music_covers/257895487.jpg","artistBio":"中国独立音乐计划，以复古流行、城市叙事和松弛编曲塑造怀旧质感。","songNote":""},{"index":50,"id":2054517809,"title":"野草","artists":["椿乐队"],"artistText":"椿乐队","album":"椿","albumId":170510158,"duration":"4:31","cover":"liked_music_covers/170510158.jpg","artistBio":"中国独立摇滚乐队，声音直接明亮，兼具吉他流行和现场冲击力。","songNote":"椿乐队的作品，以鲁迅散文诗为灵感，将民间音乐的苍凉与摇滚的爆发力结合，展现底层生命的顽强与不屈。"},{"index":51,"id":209530,"title":"会不会","artists":["陈绮贞"],"artistText":"陈绮贞","album":"让我想一想","albumId":21315,"duration":"4:22","cover":"liked_music_covers/21315.jpg","artistBio":"台湾民谣/独立流行代表，以清澈声线和细腻文字陪伴一代听众。","songNote":"《会不会》出自陈绮贞首张专辑《让我想一想》，是她大学生时期创作的代表作，奠定了「华语独立女声」的起点。"},{"index":52,"id":769937,"title":"I will be with you","artists":["LOVE PSYCHEDELICO"],"artistText":"LOVE PSYCHEDELICO","album":"I will be with you","albumId":75743,"duration":"4:21","cover":"liked_music_covers/75743.jpg","artistBio":"日本摇滚组合，把英伦摇滚、民谣和复古律动混成独特口音。","songNote":"《I will be with you》是 LOVE PSYCHEDELICO 2001 年发行的单曲，以日英双语交织的演唱和 60 年代英伦摇滚影响而著称。"},{"index":53,"id":1920414472,"title":"Andromeda","artists":["U137"],"artistText":"U137","album":"Imagination","albumId":140391988,"duration":"4:18","cover":"liked_music_covers/140391988.jpg","artistBio":"瑞典后摇/氛围音乐计划，以辽阔、明亮的旋律线著称。","songNote":"瑞典后摇计划U137的作品，由Moonlit Sailor成员组建，以宏大的管弦乐编排构建银河般的宇宙感。"},{"index":54,"id":2112988617,"title":"Don't be afraid","artists":["气象限定Quadrant"],"artistText":"气象限定Quadrant","album":"Don't be afraid","albumId":182063633,"duration":"3:38","cover":"liked_music_covers/182063633.jpg","artistBio":"北京数学摇滚乐队，以复杂节拍、清澈吉他线条和精密编曲见长。","songNote":"气象限定Quadrant的作品，以温暖的吉他音色和治愈性歌词传递勇气与陪伴。"},{"index":55,"id":19902626,"title":"Shook Down","artists":["Yuck"],"artistText":"Yuck","album":"Yuck","albumId":1836673,"duration":"3:27","cover":"liked_music_covers/1836673.jpg","artistBio":"英国独立摇滚乐队，延续九十年代吉他噪音与懒散旋律传统。","songNote":"英国独立摇滚乐队 Yuck 首张专辑中的高光曲目，以粗粝的吉他和 90 年代另类摇滚的怀旧质感唱出青春的颓废与躁动。"},{"index":56,"id":33410514,"title":"Boyo","artists":["toe"],"artistText":"toe","album":"HEAR YOU","albumId":3210056,"duration":"4:17","cover":"liked_music_covers/3210056.jpg","artistBio":"日本数学摇滚代表乐队，以细密鼓点和温柔吉他线条著称。","songNote":"日本数学摇滚乐队 toe 的精巧之作，以干净利落的吉他分解和复杂的节奏层次构建出温暖而灵动的器乐世界。"},{"index":57,"id":19548150,"title":"If Only We Remain","artists":["Two Wounded Birds"],"artistText":"Two Wounded Birds","album":"Two Wounded Birds","albumId":1800422,"duration":"3:29","cover":"liked_music_covers/1800422.jpg","artistBio":"英国独立乐队，作品带有冲浪摇滚、复古流行和清爽吉他旋律。","songNote":"英国独立乐队 Two Wounded Birds 短暂生涯中的闪光之作，融合冲浪摇滚的复古质感与 60 年代流行旋律，甜美而忧伤。"},{"index":58,"id":21970530,"title":"A Letter To Elise","artists":["The Cure"],"artistText":"The Cure","album":"Wish","albumId":2018083,"duration":"5:12","cover":"liked_music_covers/2018083.jpg","artistBio":"英国后朋克/哥特摇滚传奇，黑色浪漫与流行旋律同样动人。","songNote":"The Cure出自经典专辑《Wish》的深情之作，Robert Smith以Elise为题写给妻子的信，是乐队最具情感深度的曲目之一。"},{"index":59,"id":2095506436,"title":"密林","artists":["气象限定Quadrant"],"artistText":"气象限定Quadrant","album":"密林","albumId":177944627,"duration":"4:03","cover":"liked_music_covers/177944627.jpg","artistBio":"北京数学摇滚乐队，以复杂节拍、清澈吉他线条和精密编曲见长。","songNote":"气象限定Quadrant的代表作，以密林为隐喻探索内心幽深，融合器乐摇滚的沉浸感与东方美学意境。"},{"index":60,"id":21970664,"title":"The Last Day Of Summer","artists":["The Cure"],"artistText":"The Cure","album":"Bloodflowers","albumId":2018094,"duration":"5:36","cover":"liked_music_covers/2018094.jpg","artistBio":"英国后朋克/哥特摇滚传奇，黑色浪漫与流行旋律同样动人。","songNote":"The Cure出自专辑《Bloodflowers》的落幕曲，作为黑暗三部曲的终章，以忧伤吉他旋律探讨时间流逝与生命的终末。"},{"index":61,"id":1309301943,"title":"傘","artists":["きのこ帝国"],"artistText":"きのこ帝国","album":"Time Lapse","albumId":73253267,"duration":"5:49","cover":"liked_music_covers/73253267.jpg","artistBio":"日本独立/盯鞋乐队，擅长把青春疼痛写进雾状吉他音墙。","songNote":"日本自赏/梦幻流行乐队きのこ帝国的代表曲目，以椎名佐保的透明女声融合厚实吉他音墙，是J-Shoegaze场景中的经典之作。"},{"index":62,"id":561307139,"title":"Let It Begin","artists":["세이수미"],"artistText":"세이수미","album":"Where We Were Together","albumId":38721146,"duration":"5:38","cover":"liked_music_covers/38721146.jpg","artistBio":"韩国冲浪/独立摇滚乐队，旋律清爽，带有海风般的怀旧感。","songNote":"韩国釜山冲浪摇滚乐队Say Sue Me的代表作，以轻快吉他节奏和温润嗓音传递韩国独立音乐独有的温暖。"},{"index":63,"id":2095816186,"title":"風船","artists":["ひとひら"],"artistText":"ひとひら","album":"つくる","albumId":178143367,"duration":"2:00","cover":"liked_music_covers/178143367.jpg","artistBio":"东京 emo/独立摇滚乐队，声音直接而带有青涩的爆发力与中西部emo影响。","songNote":"日本独立摇滚乐队ひとひら的作品，融合数学摇滚的复杂节奏与中西部情绪摇滚的细腻旋律。"},{"index":64,"id":2046602170,"title":"再见晨曦","artists":["气象限定Quadrant"],"artistText":"气象限定Quadrant","album":"再见晨曦","albumId":165347520,"duration":"3:44","cover":"liked_music_covers/165347520.jpg","artistBio":"北京数学摇滚乐队，以复杂节拍、清澈吉他线条和精密编曲见长。","songNote":"气象限定Quadrant以中西部情绪摇滚式的吉他编配和中文歌词，融合了青春感伤与器乐爆发。"},{"index":65,"id":22646842,"title":"Back To My Place","artists":["東京酒吐座"],"artistText":"東京酒吐座","album":"Crystallize","albumId":2076450,"duration":"8:58","cover":"liked_music_covers/2076450.jpg","artistBio":"日本盯鞋乐队，以厚重失真和迷幻旋律制造强烈音墙。","songNote":"東京酒吐座的代表曲目，以MBV式的厚重吉他音墙配合日式旋律感，被视为和式盯鞋浪潮的里程碑。"},{"index":66,"id":2129184895,"title":"浪游之歌","artists":["The Rose Bites"],"artistText":"The Rose Bites","album":"浪游之歌","albumId":186858316,"duration":"4:21","cover":"liked_music_covers/186858316.jpg","artistBio":"中国独立乐队，声音带有后朋克、另类摇滚和冷色调吉他质感。","songNote":"The Rose Bites的回归单曲，以诗歌念白贯穿全曲，讲述在上海冬天街头散步的个人冥想。"},{"index":67,"id":2158923508,"title":"夏の抜け殻 - Remaster 2024","artists":["Heavenstamp"],"artistText":"Heavenstamp","album":"天国印鑑を聴きなさい（2024 Remaster）","albumId":197062255,"duration":"4:20","cover":"liked_music_covers/197062255.jpg","artistBio":"日本另类摇滚乐队，把英伦吉他感、电子律动和女声旋律结合得很利落。","songNote":"Heavenstamp的Remaster版作品，以疾走的吉他与电气节拍展现乐队标志性的凌厉风格。"},{"index":68,"id":26098884,"title":"欲は全ての言葉を話し、全ての役を演じ、無欲者すら『演』ずる。","artists":["té"],"artistText":"té","album":"ならば、意味から解放された響きは『音』の世界の深淵を語る。","albumId":2386893,"duration":"5:01","cover":"liked_music_covers/2386893.jpg","artistBio":"日本器乐摇滚乐队，以长标题、复杂律动和强烈动态推进著称。","songNote":"日本器乐摇滚乐队 té 的经典曲目，以层层推进的吉他旋律与爆发性的情绪张力，展现后摇音乐的叙事力量。"},{"index":69,"id":1985721103,"title":"Constellations","artists":["東京酒吐座"],"artistText":"東京酒吐座","album":"月世界遊泳(Moonworld Playground)","albumId":152493591,"duration":"6:31","cover":"liked_music_covers/152493591.jpg","artistBio":"日本盯鞋乐队，以厚重失真和迷幻旋律制造强烈音墙。","songNote":"日本盯鞋名团東京酒吐座的代表曲目，将厚重的噪音音墙与梦幻人声采样融合，是日系盯鞋入门的必听之作。"},{"index":70,"id":2681412904,"title":"cure","artists":["honeydip"],"artistText":"honeydip","album":"groovy indian summer -Remastered-","albumId":264836322,"duration":"7:49","cover":"liked_music_covers/264836322.jpg","artistBio":"日本盯鞋/独立乐队，旋律甜美，吉他音色带九十年代质感。","songNote":"honeydip出自Remaster版专辑《groovy indian summer》，以厚重的吉他失真与甜美旋律的对比著称。"},{"index":71,"id":2615268539,"title":"Cool Hand","artists":["Derya Yıldırım & Grup Şimşek"],"artistText":"Derya Yıldırım & Grup Şimşek","album":"Cool Hand","albumId":244410717,"duration":"4:23","cover":"liked_music_covers/244410717.jpg","artistBio":"德土音乐组合，把安纳托利亚民谣、迷幻摇滚和复古律动融合在一起。","songNote":"德国/土耳其迷幻民谣乐队Derya Yıldırım的作品，以土耳其传统乐器巴格拉玛琴配合迷幻摇滚编排。"},{"index":72,"id":28188038,"title":"The Golden Throne","artists":["Temples"],"artistText":"Temples","album":"Sun Structures","albumId":2742007,"duration":"4:11","cover":"liked_music_covers/2742007.jpg","artistBio":"英国迷幻摇滚乐队，擅长复古合成器色彩和六十年代感旋律。","songNote":"英国迷幻摇滚乐队 Temples 的代表曲目，以 60 年代复古迷幻音色为底色，搭配华丽的和声与旋转般的旋律线条。"},{"index":73,"id":28835597,"title":"concrete foundation","artists":["How to count one to ten"],"artistText":"How to count one to ten","album":"Blue Building Blocks","albumId":2903811,"duration":"5:52","cover":"liked_music_covers/2903811.jpg","artistBio":"东京器乐后摇乐队，以五成员精密分配音符制造明亮、自然的声景。","songNote":"日本器乐数学摇滚乐队How to count one to ten的作品，以复杂的吉他指弹与精密节奏编排见长。"},{"index":74,"id":2626401610,"title":"nothing more than meaningless","artists":["PHONO RECORDS","unfoldingskies"],"artistText":"PHONO RECORDS / unfoldingskies","album":"nothing more than meaningless","albumId":247689574,"duration":"3:48","cover":"liked_music_covers/247689574.jpg","artistBio":"独立音乐创作名义，声音常带有卧室流行和轻电子的私人质感。","songNote":"PHONO RECORDS与unfoldingskies合作的单曲，以氛围化电子音色与盯鞋吉他纹理交织，探讨意义与虚无之间的模糊地带。"},{"index":75,"id":3451316,"title":"Chocolate Matter","artists":["Sweet Trip"],"artistText":"Sweet Trip","album":"Velocity: Design: Comfort.","albumId":349573,"duration":"4:04","cover":"liked_music_covers/349573.jpg","artistBio":"美国实验电子/梦幻流行组合，把 IDM 纹理、盯鞋和旋律流行混合得精巧。","songNote":"Sweet Trip 融合电子、盯鞋与 IDM 的经典作品，以碎拍节奏和梦幻吉他编织出一个迷离而甜美的声音梦境。"},{"index":76,"id":2099601427,"title":"生长","artists":["浅水ShallowEnd"],"artistText":"浅水ShallowEnd","album":"来世","albumId":198688221,"duration":"8:32","cover":"liked_music_covers/198688221.jpg","artistBio":"中国独立乐队，作品以清透吉他、柔和人声和梦幻流行气质见长。","songNote":"浅水ShallowEnd长达8分钟的纯器乐作品，以字幕式内心独白代替唱腔，将人生的不可逆成长以音乐叙事呈现。"},{"index":77,"id":28188044,"title":"The Guesser","artists":["Temples"],"artistText":"Temples","album":"Sun Structures","albumId":2742007,"duration":"4:07","cover":"liked_music_covers/2742007.jpg","artistBio":"英国迷幻摇滚乐队，擅长复古合成器色彩和六十年代感旋律。","songNote":"英国迷幻摇滚乐队Temples的代表作，以60年代复古迷幻音色和精致编曲获得广泛赞誉。"},{"index":78,"id":2030527657,"title":"KDG","artists":["JPBS"],"artistText":"JPBS","album":"Waiting Room","albumId":161867078,"duration":"4:54","cover":"liked_music_covers/161867078.jpg","artistBio":"泰国曼谷器乐摇滚乐队，自2012年活跃于地下场景，吉他旋律松弛而富有日常感。","songNote":"日本数学摇滚/情绪摇滚乐队JPBS的作品，以错综复杂的吉他编排与情绪化爆发展现日式math rock的独特张力。"},{"index":79,"id":1491150486,"title":"Sunflower","artists":["Show Me A Dinosaur"],"artistText":"Show Me A Dinosaur","album":"Plantgazer","albumId":97583236,"duration":"5:28","cover":"liked_music_covers/97583236.jpg","artistBio":"俄罗斯后摇/后金属乐队，声音融合氛围、盯鞋质感与强烈失真推进。","songNote":"俄罗斯圣彼得堡后黑金/盯鞋乐队Show Me A Dinosaur的作品，将黑金属的爆裂感与盯鞋的梦幻音墙融合。"},{"index":80,"id":1996289965,"title":"Triage","artists":["水中スピカ"],"artistText":"水中スピカ","album":"mEq","albumId":154511205,"duration":"5:14","cover":"liked_music_covers/154511205.jpg","artistBio":"京都数学摇滚乐队，女性主唱以点弦技法配合流行旋律，在器乐精度与亲和力之间游走。","songNote":"水中スピカ的作品，以精密的节奏变化、复杂的吉他对话和极具爆发力的器乐段落著称。"},{"index":81,"id":863073353,"title":"水之湄","artists":["惘闻"],"artistText":"惘闻","album":"看不见的城市","albumId":71612875,"duration":"6:17","cover":"liked_music_covers/71612875.jpg","artistBio":"大连后摇代表乐队，以克制铺陈和史诗动态记录时间感。","songNote":"中国后摇代表性乐队惘闻的作品，曲名取自《诗经》，以层层递进的器乐叙事营造如水墨画般的东方意境。"},{"index":82,"id":2668256442,"title":"Hi Chaos","artists":["Mogwai"],"artistText":"Mogwai","album":"The Bad Fire","albumId":260452200,"duration":"5:24","cover":"liked_music_covers/260452200.jpg","artistBio":"苏格兰后摇代表乐队，以巨大动态、长篇器乐结构和电影感音墙闻名。","songNote":"苏格兰后摇先驱 Mogwai 近年的回归之作，回归早期标志性的动静对比结构，在沉稳铺陈中爆发出不加修饰的力量感。"},{"index":83,"id":2093199247,"title":"Chemical","artists":["Friko"],"artistText":"Friko","album":"Where we've been, Where we go from here","albumId":177462692,"duration":"3:22","cover":"liked_music_covers/177462692.jpg","artistBio":"芝加哥独立摇滚乐队，以戏剧化动态、清亮旋律和情绪爆发受到关注。","songNote":"芝加哥独立摇滚乐队Friko的作品，以诚挚的演唱与情绪化吉他爆发著称，被Pitchfork誉为2024年最令人期待的新人。"},{"index":84,"id":29127076,"title":"Swallowing the sun","artists":["REDЯUM"],"artistText":"REDЯUM","album":"Cinematic Sound Foundation","albumId":2987755,"duration":"5:39","cover":"liked_music_covers/2987755.jpg","artistBio":"日本独立摇滚/神游舞曲乐队，1996年结成，以 Portishead 为灵感，融合女声旋律与幽暗律动。","songNote":"REDЯUM出自专辑《Cinematic Sound Foundation》，以宏大叙事般的器乐铺陈与电影感声响空间著称。"},{"index":85,"id":22670572,"title":"冷たい花","artists":["the brilliant green"],"artistText":"the brilliant green","album":"The Brilliant Green","albumId":2079332,"duration":"4:39","cover":"liked_music_covers/2079332.jpg","artistBio":"日本流行摇滚乐队，以英伦感吉他编曲和川濑智子的独特声线成名。","songNote":"the brilliant green出自1998年同名首专，融合英伦摇滚与日式流行旋律，是J-Rock黄金时代的经典。"},{"index":86,"id":2112520890,"title":"壬寅岁末","artists":["索廷"],"artistText":"索廷","album":"俚人往事","albumId":182036636,"duration":"3:12","cover":"liked_music_covers/182036636.jpg","artistBio":"中国独立音乐人，作品常以细腻旋律和内向文本构成私人化表达。","songNote":"索廷以方言和古朴的叙事方式记录岭南地方记忆与风土人情，是中国民谣中罕见的地方志式创作。"},{"index":87,"id":19902624,"title":"Get Away","artists":["Yuck"],"artistText":"Yuck","album":"Yuck","albumId":1836673,"duration":"3:35","cover":"liked_music_covers/1836673.jpg","artistBio":"英国独立摇滚乐队，延续九十年代吉他噪音与懒散旋律传统。","songNote":"Yuck出自2011年同名首专，完美复刻90年代Dinosaur Jr.式的低保真吉他噪音美学，是独立摇滚复兴的重要作品。"},{"index":88,"id":2164845852,"title":"YAY","artists":["I'm fine! Thank you! And you?"],"artistText":"I'm fine! Thank you! And you?","album":"YAY","albumId":198760879,"duration":"4:05","cover":"liked_music_covers/198760879.jpg","artistBio":"中国盯鞋/独立摇滚乐队，作品以噪音墙、梦幻质感与层层推进的年轻情绪展开。","songNote":"韩国情绪/数学摇滚乐队I'm fine! Thank you! And you?的作品，以跳跃的节奏与twinkly guitar展现青春气质。"},{"index":89,"id":22640730,"title":"Morning glow","artists":["Heavenstamp"],"artistText":"Heavenstamp","album":"HEAVENSTAMP","albumId":2075646,"duration":"5:35","cover":"liked_music_covers/2075646.jpg","artistBio":"日本另类摇滚乐队，把英伦吉他感、电子律动和女声旋律结合得很利落。","songNote":"Heavenstamp以凌厉的吉他riff与电气化节奏著称，是日本另类摇滚场景中的独特存在。"},{"index":90,"id":2652646284,"title":"生活","artists":["polly"],"artistText":"polly","album":"生活","albumId":255669475,"duration":"4:12","cover":"liked_music_covers/255669475.jpg","artistBio":"日本另类摇滚/盯鞋乐队，旋律冷感，吉他音色兼具透明度与噪音感。","songNote":"日本盯鞋个人计划polly的作品，以中文标题、日式盯鞋的朦胧吉他音色与轻柔女声描绘日常生活中的微妙情感。"},{"index":91,"id":27756582,"title":"Last Night's Haze","artists":["Star Horse"],"artistText":"Star Horse","album":"Devour","albumId":2672032,"duration":"3:29","cover":"liked_music_covers/2672032.jpg","artistBio":"瑞典盯鞋乐队，延续北欧梦幻流行质地，吉他音墙柔软而明亮。","songNote":"瑞典盯鞋/梦幻流行乐队Star Horse的作品，以朦胧的吉他音色与慵懒人声营造北欧特有的清冷梦幻氛围。"},{"index":92,"id":1907428063,"title":"Slow Down, Wild One","artists":["Go with Strangers"],"artistText":"Go with Strangers","album":"Slow Down, Wild One","albumId":138110633,"duration":"3:23","cover":"liked_music_covers/138110633.jpg","artistBio":"中国独立摇滚乐队，作品带有复古吉他流行和明亮旋律气质。","songNote":"中国独立乐队 Go with Strangers 的作品，融合后摇的宏大叙事与盯鞋的迷幻质感，以温柔而克制的器乐表达内心的孤独。"},{"index":93,"id":2015013516,"title":"farewell","artists":["kurayamisaka"],"artistText":"kurayamisaka","album":"kimi wo omotte iru","albumId":158332120,"duration":"3:40","cover":"liked_music_covers/158332120.jpg","artistBio":"东京大井町五人编制摇滚乐队，以独立摇滚为根基，融合盯鞋与九十年代另类声响。","songNote":"日本盯鞋新秀 kurayamisaka 的告别主题作品，以层叠噪音吉他包裹朦胧人声，将离别的伤感化作温暖的音墙。"},{"index":94,"id":2604846789,"title":"告别","artists":["Carsick Cars"],"artistText":"Carsick Cars","album":"口","albumId":242372780,"duration":"4:49","cover":"liked_music_covers/242372780.jpg","artistBio":"北京独立摇滚代表乐队，以粗粝吉他、极简律动和地下现场能量著称。","songNote":"Carsick Cars出自专辑《口》，延续其一贯的噪音摇滚美学，以尖锐的吉他反馈与中文歌词表达告别与重生。"},{"index":95,"id":2615409908,"title":"The Greatest Escape Plan","artists":["软骨Gristle","阿克江Akin","yocho"],"artistText":"软骨Gristle / 阿克江Akin / yocho","album":"Iceberg","albumId":245542323,"duration":"4:06","cover":"liked_music_covers/245542323.jpg","artistBio":"中国独立乐队，声音在另类摇滚、后朋克和冷感吉他质地之间展开。","songNote":"软骨Gristle联合阿克江Akin与yocho，以电子节拍与另类摇滚融合，展现跨界合作的多元可能性。"},{"index":96,"id":1839666622,"title":"Further","artists":["Go with Strangers"],"artistText":"Go with Strangers","album":"Further","albumId":126450527,"duration":"4:08","cover":"liked_music_covers/126450527.jpg","artistBio":"中国独立摇滚乐队，作品带有复古吉他流行和明亮旋律气质。","songNote":"马来西亚独立乐队 Go with Strangers 的作品，层层音墙与迷离人声交织，呈现东南亚独立音乐独有的忧伤与浪漫。"},{"index":97,"id":22809495,"title":"大胆は无知と卑劣の子であって、他の资格よりはるかに『劣』る.","artists":["té"],"artistText":"té","album":"それは、鳴り響く世界から現実的な音を「歌」おうとする思考。","albumId":2096735,"duration":"5:54","cover":"liked_music_covers/2096735.jpg","artistBio":"日本器乐摇滚乐队，以长标题、复杂律动和强烈动态推进著称。","songNote":"té 乐队的另一首代表作，以复杂的节奏变化与旋律堆叠构建出极具冲击力的器乐叙事。"},{"index":98,"id":2118169873,"title":"Deep Inside","artists":["LITE"],"artistText":"LITE","album":"STRATA","albumId":183407938,"duration":"4:08","cover":"liked_music_covers/183407938.jpg","artistBio":"日本数学摇滚代表，演奏精准，律动复杂却保持流畅。","songNote":"LITE以标志性的复杂节拍、跳跃的吉他riff和极具舞蹈性的律动展现J-Math Rock的技术与感染力。"},{"index":99,"id":2058064858,"title":"purple","artists":["she’s green"],"artistText":"she’s green","album":"wisteria","albumId":168184496,"duration":"3:55","cover":"liked_music_covers/168184496.jpg","artistBio":"美国明尼阿波利斯梦幻流行/盯鞋乐队，旋律清澈，声音像薄雾里的吉他光晕。","songNote":"shes green出自EP《wisteria》，以空灵的混响吉他和飘渺的人声营造如紫藤花般缠绕的梦幻声景。"},{"index":100,"id":2075594038,"title":"IN THE NAME OF LOVE","artists":["world's end girlfriend"],"artistText":"world's end girlfriend","album":"Resistance & The Blessing","albumId":173030503,"duration":"7:30","cover":"liked_music_covers/173030503.jpg","artistBio":"日本实验音乐人，把古典、电子和后摇拼贴成宏大叙事。","songNote":"worlds end girlfriend将古典弦乐、电子噪音与后摇滚融合，创造出极具戏剧张力的音乐叙事。"},{"index":101,"id":2142540616,"title":"どんなことがあってもぼくはここに戻ってこれるから","artists":["Yuètù"],"artistText":"Yuètù","album":"どんなことがあってもぼくはここに戻ってこれるから","albumId":191155961,"duration":"6:19","cover":"liked_music_covers/191155961.jpg","artistBio":"独立音乐人/项目，作品在轻盈旋律和柔和氛围之间保持私人化表达。","songNote":"Yuètù以温柔的吉他音色和日式indie的细腻旋律，传递出归处的温暖与归属感。"},{"index":102,"id":2055817369,"title":"Episode 2: Leos","artists":["CQ"],"artistText":"CQ","album":"What a Wonderful World's End","albumId":167666034,"duration":"3:57","cover":"liked_music_covers/167666034.jpg","artistBio":"日本盯鞋乐队，延续东京地下吉他噪音传统，旋律感柔软而迷离。","songNote":"CQ将盯鞋吉他的层层噪音与后摇滚的渐进结构结合，营造出世界末日般的壮丽感。"},{"index":103,"id":496902108,"title":"Last Song","artists":["CQ"],"artistText":"CQ","album":"Communication,Cultural,Curiosity Quotient","albumId":35919029,"duration":"5:02","cover":"liked_music_covers/35919029.jpg","artistBio":"日本盯鞋乐队，延续东京地下吉他噪音传统，旋律感柔软而迷离。","songNote":"CQ出自专辑《Communication,Cultural,Curiosity Quotient》，以深邃的吉他音墙与漂浮感的人声营造沉浸式声景。"},{"index":104,"id":2083475233,"title":"大马士革","artists":["张玮玮"],"artistText":"张玮玮","album":"沙木黎","albumId":175093949,"duration":"5:19","cover":"liked_music_covers/175093949.jpg","artistBio":"中国民谣音乐人，以手风琴、口语化叙事和西北气质写出现实感。","songNote":"张玮玮的单曲，以沉静的叙事与手风琴的悠扬旋律，描绘对叙利亚古城大马士革的诗意想象与人文关怀。"},{"index":105,"id":1981044211,"title":"Scared To Get Dizzy","artists":["热斑Heat Mark"],"artistText":"热斑Heat Mark","album":"The Independent Motherfu独立宝贝s","albumId":151506169,"duration":"3:19","cover":"liked_music_covers/151506169.jpg","artistBio":"广州独立乐队，音乐在梦幻流行、盯鞋和城市感旋律之间流动。","songNote":"热斑Heat Mark延续其冷感独立摇滚风格，以简洁有力的riff和个性女声为标志。"},{"index":106,"id":209311,"title":"来不及","artists":["陈珊妮"],"artistText":"陈珊妮","album":"我从来不是幽默的女生","albumId":21292,"duration":"5:15","cover":"liked_music_covers/21292.jpg","artistBio":"台湾创作女歌手与制作人，以冷感声线、独立审美和精准制作著称。","songNote":"《来不及》出自陈珊妮专辑《完美的呻吟》，是台湾独立音乐场景中以冷冽电子音色包裹深情表达的标志性作品。"},{"index":107,"id":2632241806,"title":"Огни святого Эльма","artists":["CATS NEVER DIE"],"artistText":"CATS NEVER DIE","album":"Огни святого Эльма","albumId":249362974,"duration":"4:08","cover":"liked_music_covers/249362974.jpg","artistBio":"俄罗斯后摇/盯鞋乐队，器乐为主，声音以清透吉他音色和冷色调氛围展开。","songNote":"俄罗斯后摇/嘶吼摇滚乐队CATS NEVER DIE的作品，以极具爆发力的嘶吼与旋律段落交替。"},{"index":108,"id":1880177078,"title":"算术","artists":["左小祖咒"],"artistText":"左小祖咒","album":"涅槃","albumId":133583254,"duration":"3:00","cover":"liked_music_covers/133583254.jpg","artistBio":"中国另类音乐人，以粗粝声线、观念表达和实验姿态著称。","songNote":"左小祖咒以标志性的荒腔走板式唱腔与充满讽喻的歌词，延续其对中国社会的独特观察。"},{"index":109,"id":25730560,"title":"Where Are We Now?","artists":["David Bowie"],"artistText":"David Bowie","album":"The Next Day","albumId":2302112,"duration":"4:09","cover":"liked_music_covers/2302112.jpg","artistBio":"英国摇滚与流行艺术传奇，持续以角色、声音和视觉概念推动音乐边界。","songNote":"《Where Are We Now?》是大卫·鲍伊沉寂十年后在 66 岁生日当天突袭发布的复出单曲，歌词回顾了他在柏林的岁月。"},{"index":110,"id":4281483,"title":"Machine Gun","artists":["Slowdive"],"artistText":"Slowdive","album":"Souvlaki","albumId":432665,"duration":"4:27","cover":"liked_music_covers/432665.jpg","artistBio":"英国盯鞋经典乐队，以漂浮音墙和柔软人声定义梦幻噪音美学。","songNote":"Slowdive出自经典专辑《Souvlaki》的代表作，以层层叠加的吉他噪音墙与梦幻人声交织，定义了盯鞋美学的巅峰。"},{"index":111,"id":466122586,"title":"或许不在我身边","artists":["热斑Heat Mark"],"artistText":"热斑Heat Mark","album":"无感人","albumId":35288379,"duration":"4:31","cover":"liked_music_covers/35288379.jpg","artistBio":"广州独立乐队，音乐在梦幻流行、盯鞋和城市感旋律之间流动。","songNote":"热斑Heat Mark的作品，以简约但锋利的吉他编排搭配具有穿透力的女声，表达都市青年的情感疏离。"},{"index":112,"id":308261,"title":"失恋布丁","artists":["徐怀钰"],"artistText":"徐怀钰","album":"天使","albumId":30604,"duration":"4:30","cover":"liked_music_covers/30604.jpg","artistBio":"台湾流行女歌手，九十年代末以明亮声线和高辨识度流行单曲走红。","songNote":"《失恋布丁》出自徐怀钰首张个人专辑，以俏皮活泼的舞曲风格将失恋的苦涩包装成甜美布丁，是她「平民天后」时代最具代表性的青春曲目。"},{"index":113,"id":451126141,"title":"开心不起来","artists":["热斑Heat Mark"],"artistText":"热斑Heat Mark","album":"无感人","albumId":35288379,"duration":"2:33","cover":"liked_music_covers/35288379.jpg","artistBio":"广州独立乐队，音乐在梦幻流行、盯鞋和城市感旋律之间流动。","songNote":"热斑 Heat Mark 的冷感之作，以慵懒而略带颓废的嗓音唱出当代年轻人无法开心起来的情绪困境。"},{"index":114,"id":1958971864,"title":"安全降落（Safe landing）","artists":["表情银行MimikBanka"],"artistText":"表情银行MimikBanka","album":"狗日子（Dog Days）","albumId":147130455,"duration":"5:07","cover":"liked_music_covers/147130455.jpg","artistBio":"中国独立流行乐队，声音轻巧，旋律和编曲带有明亮的复古趣味。","songNote":"表情银行MimikBanka的作品，以精致的编曲、诗意的中英文歌词和艺术摇滚气质展现中国独立音乐的前沿探索。"},{"index":115,"id":28793502,"title":"后会无期","artists":["G.E.M.邓紫棋"],"artistText":"G.E.M.邓紫棋","album":"后会无期","albumId":2894210,"duration":"3:43","cover":"liked_music_covers/2894210.jpg","artistBio":"华语流行唱作人，以强力唱腔、旋律写作和舞台表现力见长。","songNote":"邓紫棋为韩寒导演电影《后会无期》演唱的同名主题曲，以空灵的钢琴伴奏与深情唱腔诠释人生中无可挽回的离别。"},{"index":116,"id":466122584,"title":"想要什么样的爱","artists":["热斑Heat Mark"],"artistText":"热斑Heat Mark","album":"无感人","albumId":35288379,"duration":"3:37","cover":"liked_music_covers/35288379.jpg","artistBio":"广州独立乐队，音乐在梦幻流行、盯鞋和城市感旋律之间流动。","songNote":"热斑Heat Mark出自专辑《无感人》，以冷峻的吉他音色与疏离感的女声融合后朋克与独立摇滚元素。"},{"index":117,"id":1472090806,"title":"Unsaveable","artists":["热斑Heat Mark"],"artistText":"热斑Heat Mark","album":"NOT BAD","albumId":94140631,"duration":"3:10","cover":"liked_music_covers/94140631.jpg","artistBio":"广州独立乐队，音乐在梦幻流行、盯鞋和城市感旋律之间流动。","songNote":"热斑Heat Mark的作品，以更加电气化的编制和英文创作展现乐队风格的拓展。"},{"index":118,"id":19189258,"title":"I Love You Golden Blue","artists":["Sonic Youth"],"artistText":"Sonic Youth","album":"Sonic Nurse","albumId":1759828,"duration":"7:06","cover":"liked_music_covers/1759828.jpg","artistBio":"纽约噪音摇滚代表乐队，以非常规调弦和实验吉他语言影响深远。","songNote":"《I Love You Golden Blue》出自 Sonic Youth 2004 年专辑《Sonic Nurse》，由 Kim Gordon 主唱，七分钟的缓慢铺陈弥漫着不安的脆弱与唯美。"},{"index":119,"id":1923496140,"title":"温和表面","artists":["赵登凯"],"artistText":"赵登凯","album":"生长在身体里的意识","albumId":140980702,"duration":"5:39","cover":"liked_music_covers/140980702.jpg","artistBio":"中国独立流行唱作人，创作以温柔旋律和私人化叙事见长，兼顾影视剧歌曲。","songNote":"赵登凯的独立创作，以温柔的电子氛围包裹内心深处的敏感情绪，在平静表面下暗涌着对自我与世界的省思。"},{"index":120,"id":456185094,"title":"无赖","artists":["林忆莲"],"artistText":"林忆莲","album":"歌手 第2期","albumId":35158039,"duration":"5:26","cover":"liked_music_covers/35158039.jpg","artistBio":"华语流行天后，声音细腻克制，横跨都市情歌、R&B 和电子流行。","songNote":"《无赖》出自林忆莲专辑《0》，时隔六年再次为她赢得金曲奖最佳国语女歌手奖。"},{"index":121,"id":308478,"title":"温习","artists":["徐怀钰"],"artistText":"徐怀钰","album":"Yuki 第一张个人专辑","albumId":30623,"duration":"4:53","cover":"liked_music_covers/30623.jpg","artistBio":"台湾流行女歌手，九十年代末以明亮声线和高辨识度流行单曲走红。","songNote":"徐怀钰的经典慢板情歌，以温柔嗓音唱出对过往爱情的反复回味与不舍，是千禧年代华语流行的温暖记忆。"},{"index":122,"id":1942729022,"title":"Noctiflorous","artists":["野岸刊"],"artistText":"野岸刊","album":"Noctiflorous","albumId":144203730,"duration":"7:49","cover":"liked_music_covers/144203730.jpg","artistBio":"中国独立乐队，音乐在噪音吉他、情绪摇滚和年轻叙事间展开。","songNote":"野岸刊以Noctiflorous夜间绽放的花为名，用吉他音墙描绘暗夜中寂静生长的美。"},{"index":123,"id":2114419825,"title":"归零","artists":["林忆莲"],"artistText":"林忆莲","album":"0 (2024版)","albumId":182478525,"duration":"4:32","cover":"liked_music_covers/182478525.jpg","artistBio":"华语流行天后，声音细腻克制，横跨都市情歌、R&B 和电子流行。","songNote":"《归零》是林忆莲专辑《0》的核心曲目之一，以极简电子编曲搭配充满哲思的歌词，呼应从零开始循环往复的主题。"},{"index":124,"id":4174137,"title":"when you sleep","artists":["My Bloody Valentine"],"artistText":"My Bloody Valentine","album":"loveless","albumId":422052,"duration":"4:12","cover":"liked_music_covers/422052.jpg","artistBio":"爱尔兰/英国盯鞋传奇乐队，以颤音吉他和浓密音墙重塑吉他音乐想象。","songNote":"《when you sleep》出自 My Bloody Valentine 的里程碑专辑《Loveless》，人声被录制了十二三遍再叠加而成，被《卫报》形容为「一段迷醉的欣快感」。"},{"index":125,"id":1996291631,"title":"Oshiroi","artists":["水中スピカ"],"artistText":"水中スピカ","album":"mEq","albumId":154511205,"duration":"4:17","cover":"liked_music_covers/154511205.jpg","artistBio":"京都数学摇滚乐队，女性主唱以点弦技法配合流行旋律，在器乐精度与亲和力之间游走。","songNote":"水中スピカ以复杂多变的节奏编织出日式数摇独有的灵动与精致，歌名Oshiroi意为白粉，暗示传统与虚幻之美。"},{"index":126,"id":22332615,"title":"Always a Relief","artists":["The Radio Dept."],"artistText":"The Radio Dept.","album":"Pet Grief","albumId":2049352,"duration":"3:21","cover":"liked_music_covers/2049352.jpg","artistBio":"瑞典独立流行乐队，把低保真、梦幻流行和政治感文本做得轻柔克制。","songNote":"瑞典梦幻自赏名团The Radio Dept.的代表作，以朦胧的噪音吉他包裹着治愈而疏离的温柔。"},{"index":127,"id":2620962255,"title":"梦幻致死浪漫","artists":["热斑Heat Mark"],"artistText":"热斑Heat Mark","album":"梦幻致死浪漫","albumId":246052324,"duration":"4:27","cover":"liked_music_covers/246052324.jpg","artistBio":"广州独立乐队，音乐在梦幻流行、盯鞋和城市感旋律之间流动。","songNote":"热斑Heat Mark用冷艳的电子摇滚节奏揭露美好表象下致命的浪漫幻象。"},{"index":128,"id":308150,"title":"承认","artists":["辛晓琪"],"artistText":"辛晓琪","album":"每个女人","albumId":30595,"duration":"4:56","cover":"liked_music_covers/30595.jpg","artistBio":"华语情歌代表女声，细腻声线和成熟情绪表达极具辨识度。","songNote":"李宗盛词曲、辛晓琪演唱的经典女声情歌，电视剧《太阳花》片尾曲，以细腻笔触书写爱情中的不甘与承认。"},{"index":129,"id":16463509,"title":"In Your Room","artists":["Airiel"],"artistText":"Airiel","album":"Winks & Kisses: Melted","albumId":1518720,"duration":"9:26","cover":"liked_music_covers/1518720.jpg","artistBio":"美国盯鞋乐队，厚重吉他音墙和梦幻旋律保留了九十年代经典质地。","songNote":"美国盯鞋乐队 Airiel 的经典之作，密集的吉他音墙与梦幻人声交织，是当代盯鞋复兴浪潮中广受推崇的代表曲目。"},{"index":130,"id":2012388372,"title":"5:00 pm on a friday","artists":["Sadness"],"artistText":"Sadness","album":"daydream flowers","albumId":157762844,"duration":"13:45","cover":"liked_music_covers/157762844.jpg","artistBio":"美国黑金属/后摇个人计划，常把极端音乐、氛围和脆弱旋律并置。","songNote":"匿名计划Sadness的黑金属/自赏融合之作，以周五下午五点的意象捕捉一周终结时特有的空茫与忧郁。"},{"index":131,"id":1819305216,"title":"Aftershow","artists":["Megumi Acorda"],"artistText":"Megumi Acorda","album":"Unexpectedly (Quarantine Session)","albumId":122864177,"duration":"5:05","cover":"liked_music_covers/122864177.jpg","artistBio":"菲律宾梦幻流行/盯鞋音乐人，声音温柔而带有朦胧颗粒感。","songNote":"Megumi Acorda以朦胧吉他与人声构建演出结束后残留的余韵与失落氛围。"},{"index":132,"id":1321803205,"title":"if they come","artists":["Megumi Acorda"],"artistText":"Megumi Acorda","album":"if they come","albumId":74179202,"duration":"4:41","cover":"liked_music_covers/74179202.jpg","artistBio":"菲律宾梦幻流行/盯鞋音乐人，声音温柔而带有朦胧颗粒感。","songNote":"Megumi Acorda延续其标志性的迷离声响与留白美学，将不安与期待交织成轻巧的音景。"},{"index":133,"id":1819304509,"title":"Unexpectedly","artists":["Megumi Acorda"],"artistText":"Megumi Acorda","album":"Unexpectedly (Quarantine Session)","albumId":122864177,"duration":"4:22","cover":"liked_music_covers/122864177.jpg","artistBio":"菲律宾梦幻流行/盯鞋音乐人，声音温柔而带有朦胧颗粒感。","songNote":"Megumi Acorda歌如其名，以吉他的意外转折与人声的轻柔渗透营造出无法预料的情感波动。"},{"index":134,"id":209137,"title":"烟火","artists":["陈绮贞"],"artistText":"陈绮贞","album":"太阳","albumId":21275,"duration":"5:46","cover":"liked_music_covers/21275.jpg","artistBio":"台湾民谣/独立流行代表，以清澈声线和细腻文字陪伴一代听众。","songNote":"《烟火》出自陈绮贞专辑《太阳》，以极简的吉他与人声捕捉刹那光华般的感伤。"},{"index":135,"id":316117,"title":"明天","artists":["杨乃文"],"artistText":"杨乃文","album":"One","albumId":31322,"duration":"5:16","cover":"liked_music_covers/31322.jpg","artistBio":"台湾摇滚女声代表，冷冽声线和克制表达带来独特的都市气质。","songNote":"《明天》出自杨乃文的金曲奖获奖专辑《Silence》，歌词中充满挣扎与渴望，展现了她兼具爆发力与内敛的独特嗓音。"},{"index":136,"id":308248,"title":"友情卡片","artists":["徐怀钰"],"artistText":"徐怀钰","album":"天使","albumId":30604,"duration":"4:15","cover":"liked_music_covers/30604.jpg","artistBio":"台湾流行女歌手，九十年代末以明亮声线和高辨识度流行单曲走红。","songNote":"《友情卡片》出自徐怀钰专辑《向前冲》，以轻快的流行旋律讲述校园友情，承载了一代人的青春记忆。"},{"index":137,"id":40255645,"title":"Wallow","artists":["Forsaken Autumn"],"artistText":"Forsaken Autumn","album":"Whenere","albumId":3442241,"duration":"3:29","cover":"liked_music_covers/3442241.jpg","artistBio":"上海盯鞋/梦幻流行乐队，白噪音之下游走着疏离、冷感与梦幻的内心景观。","songNote":"上海自赏乐队Forsaken Autumn的代表作，用厚重的吉他音墙与空灵人声构建沉溺般的梦幻声景。"},{"index":138,"id":1878304841,"title":"1968 Itinerary","artists":["Jo's Moving Day乔迁日"],"artistText":"Jo's Moving Day乔迁日","album":"Itinerary（航行指南）","albumId":134651209,"duration":"5:12","cover":"liked_music_covers/134651209.jpg","artistBio":"中国独立乐队，音乐在另类摇滚、梦幻流行和年轻叙事之间游走。","songNote":"广州独立乐队乔迁日的作品，以1968年的旅行路线为隐喻，用温暖吉他叙述时间流逝中的迁徙与怀旧。"},{"index":139,"id":1297494185,"title":"ghost","artists":["Megumi Acorda"],"artistText":"Megumi Acorda","album":"ghost","albumId":72056654,"duration":"3:44","cover":"liked_music_covers/72056654.jpg","artistBio":"菲律宾梦幻流行/盯鞋音乐人，声音温柔而带有朦胧颗粒感。","songNote":"Megumi Acorda以幽灵为题，用飘渺的和声与疏离的吉他勾勒出若即若离的存在感。"},{"index":140,"id":1944667883,"title":"平原","artists":["缺省"],"artistText":"缺省","album":"共同的土地","albumId":174880171,"duration":"5:11","cover":"liked_music_covers/174880171.jpg","artistBio":"中国后朋克/独立摇滚乐队，冷峻律动和克制女声构成鲜明的城市感。","songNote":"北京自赏乐队缺省的代表作，以平原的开阔意象映照内心的辽阔与孤寂，是国产自赏的经典叙事。"},{"index":141,"id":2111729095,"title":"坏孩子的天空","artists":["诱导社"],"artistText":"诱导社","album":"坏孩子的天空","albumId":181847170,"duration":"4:02","cover":"liked_music_covers/181847170.jpg","artistBio":"北京朋克/另类摇滚乐队，中国地下摇滚重要名字之一，表达直接有力。","songNote":"中国传奇朋克乐队诱导社的标志性曲目，歌名致敬北野武电影，以粗粝的朋克态度书写青春的叛逆与无奈。"},{"index":142,"id":1415697454,"title":"一如往常","artists":["逃走鮑伯"],"artistText":"逃走鮑伯","album":"demo","albumId":84871798,"duration":"4:07","cover":"liked_music_covers/84871798.jpg","artistBio":"台湾独立乐队，作品常带有青春感旋律、吉他流行和轻快现场气息。","songNote":"台湾独立摇滚乐队逃走鮑伯的作品，以轻快的吉他节奏和少年感的嗓音讲述日常中的不变与变迁。"},{"index":143,"id":2081795112,"title":"河流","artists":["蛙池"],"artistText":"蛙池","album":"蛙池 2020-2021","albumId":174550915,"duration":"4:00","cover":"liked_music_covers/174550915.jpg","artistBio":"中国独立乐队，以南方生活感、民谣叙事和松弛律动塑造鲜明气质。","songNote":"蛙池的成名曲，以极具文学性的歌词与爆发力十足的后朋编曲描绘底层青年在城市洪流中的挣扎。"},{"index":144,"id":2022301202,"title":"Tomorrow","artists":["Megumi Acorda"],"artistText":"Megumi Acorda","album":"Silver Fairy","albumId":160029285,"duration":"4:38","cover":"liked_music_covers/160029285.jpg","artistBio":"菲律宾梦幻流行/盯鞋音乐人，声音温柔而带有朦胧颗粒感。","songNote":"Megumi Acorda在模糊的吉他音墙中寄托对未来的不确定与微弱的期盼。"},{"index":145,"id":2057572146,"title":"Knock！Knock！（叮咚！）","artists":["及时撤退Jane’s Fallback"],"artistText":"及时撤退Jane’s Fallback","album":"我想做个庸俗的诗人","albumId":168060232,"duration":"4:11","cover":"liked_music_covers/168060232.jpg","artistBio":"中国独立乐队，音乐在 emo、独立摇滚和青春叙事之间保持真诚张力。","songNote":"及时撤退Janes Fallback以轻快的电子流行节奏模拟敲门声响，以俏皮方式表达都市情感中的试探与回应。"},{"index":146,"id":863112864,"title":"Murmuration","artists":["GoGo Penguin"],"artistText":"GoGo Penguin","album":"v2.0","albumId":71686746,"duration":"4:13","cover":"liked_music_covers/71686746.jpg","artistBio":"英国爵士三重奏，用钢琴、贝斯和鼓构建带电子律动感的现代爵士。","songNote":"英国曼彻斯特爵士三重奏 GoGo Penguin 的代表作，曲名源自椋鸟群飞的壮观自然现象，融合爵士钢琴、古典结构与电子元素。"},{"index":147,"id":2067168881,"title":"秋分","artists":["蛙池"],"artistText":"蛙池","album":"郊游","albumId":170417865,"duration":"5:05","cover":"liked_music_covers/170417865.jpg","artistBio":"中国独立乐队，以南方生活感、民谣叙事和松弛律动塑造鲜明气质。","songNote":"蛙池以秋分为题，取自二十四节气，以诗意而冷峻的笔触书写季节更替中的人事变迁。"},{"index":148,"id":2115773460,"title":"逃現郷","artists":["Blume popo"],"artistText":"Blume popo","album":"逃現郷","albumId":182812592,"duration":"3:16","cover":"liked_music_covers/182812592.jpg","artistBio":"日本另类摇滚/盯鞋/梦幻流行乐队，2015年结成于滋贺县，旋律轻盈而吉他层次丰富。","songNote":"Blume popo的作品，以梦幻流行声响构建一个远离尘嚣的精神避难所。"},{"index":149,"id":865907027,"title":"19:52 暮","artists":["完美倒立"],"artistText":"完美倒立","album":"暮","albumId":72796738,"duration":"4:12","cover":"liked_music_covers/72796738.jpg","artistBio":"中国独立乐队，作品带有梦幻吉他、青春感旋律和轻盈噪音边缘。","songNote":"完美倒立以19点52分暮色为题，以电子与吉他交错的迷离声响定格黄昏瞬间的暧昧与忧伤。"},{"index":150,"id":549361780,"title":"24FPSummer","artists":["动物园钉子户"],"artistText":"动物园钉子户","album":"动物园钉子户","albumId":38083292,"duration":"4:56","cover":"liked_music_covers/38083292.jpg","artistBio":"中国独立摇滚乐队，以幽默感、年轻语气和明亮吉他流行获得关注。","songNote":"动物园钉子户的青春夏日颂歌，以24帧每秒的夏天比喻少年时代流逝的质感，充满怀旧气息。"},{"index":151,"id":2028884728,"title":"碎星","artists":["白色海岸The White Coast"],"artistText":"白色海岸The White Coast","album":"碎星","albumId":161536512,"duration":"4:20","cover":"liked_music_covers/161536512.jpg","artistBio":"中国独立乐队，音乐带有海岸感的吉他旋律和清爽流行色彩。","songNote":"白色海岸以碎星为意象，在梦幻流行的声景中描绘浪漫破碎后的星辰残片与希望。"},{"index":152,"id":22646844,"title":"Bright","artists":["東京酒吐座"],"artistText":"東京酒吐座","album":"Crystallize","albumId":2076450,"duration":"8:16","cover":"liked_music_covers/2076450.jpg","artistBio":"日本盯鞋乐队，以厚重失真和迷幻旋律制造强烈音墙。","songNote":"東京酒吐座以炸裂的吉他噪音音墙与飘渺女声构建日式自赏的极致美学。"},{"index":153,"id":1816446845,"title":"Opus","artists":["Black Country, New Road"],"artistText":"Black Country, New Road","album":"For the first time","albumId":122381827,"duration":"8:01","cover":"liked_music_covers/122381827.jpg","artistBio":"英国实验摇滚乐队，把室内乐、后摇和文学化叙事混成紧张的群像声音。","songNote":"英国后摇滚/实验乐队 Black Country, New Road 的早期单曲，以念白式演唱、萨克斯旋律与不安的节奏构建出充满文学性的音乐叙事。"},{"index":154,"id":778069,"title":"YES -free flower-","artists":["My Little Lover"],"artistText":"My Little Lover","album":"YES -free flower-","albumId":76694,"duration":"5:08","cover":"liked_music_covers/76694.jpg","artistBio":"日本流行组合，清澈女声和九十年代 J-pop 编曲构成温柔的时代质感。","songNote":"日本流行组合 My Little Lover 的代表作之一，由女主唱 akko 的清澈嗓音配合小林武史的电子编曲，是 90 年代 J-Pop 的清新经典。"},{"index":155,"id":1379410324,"title":"ゆめみちゃった(アルバムバージョン)","artists":["betcover!!"],"artistText":"betcover!!","album":"中学生","albumId":80533292,"duration":"9:58","cover":"liked_music_covers/80533292.jpg","artistBio":"日本另类创作计划，常在爵士、摇滚和戏剧化唱腔之间游走。","songNote":"日本独立摇滚鬼才betcover!!的作品，以扭曲多变的编曲和病娇式的嗓音展现其独一无二的音乐世界观。"},{"index":156,"id":22646845,"title":"Just Alright","artists":["東京酒吐座"],"artistText":"東京酒吐座","album":"Crystallize","albumId":2076450,"duration":"3:47","cover":"liked_music_covers/2076450.jpg","artistBio":"日本盯鞋乐队，以厚重失真和迷幻旋律制造强烈音墙。","songNote":"東京酒吐座的另一首自赏佳作，以暴烈的噪音与轻盈旋律的对比诠释一切刚好的矛盾与平衡。"},{"index":157,"id":4281481,"title":"Alison","artists":["Slowdive"],"artistText":"Slowdive","album":"Souvlaki","albumId":432665,"duration":"3:50","cover":"liked_music_covers/432665.jpg","artistBio":"英国盯鞋经典乐队，以漂浮音墙和柔软人声定义梦幻噪音美学。","songNote":"《Alison》常被视作 Slowdive 最温柔也最具入口感的早期代表作之一。"},{"index":158,"id":540931,"title":"クリスマス・イブ","artists":["山下達郎"],"artistText":"山下達郎","album":"クリスマス・イブ","albumId":50664,"duration":"4:16","cover":"liked_music_covers/50664.jpg","artistBio":"日本城市流行巨匠，以精密制作、和声美学和温暖旋律著称。","songNote":"《クリスマス・イブ》是山下達郎 1983 年的曲目，因 JR 东海的电视广告成为日本国民级圣诞歌曲，累计销量超 180 万张。"},{"index":159,"id":19188871,"title":"Pink Steam","artists":["Sonic Youth"],"artistText":"Sonic Youth","album":"Rather Ripped","albumId":1759790,"duration":"6:58","cover":"liked_music_covers/1759790.jpg","artistBio":"纽约噪音摇滚代表乐队，以非常规调弦和实验吉他语言影响深远。","songNote":"《Pink Steam》来自 Sonic Youth 后期作品，保留了他们标志性的吉他噪音张力。"},{"index":160,"id":2081552364,"title":"Dear Myself (feat. Wan K.)","artists":["尹光","Wan K."],"artistText":"尹光 / Wan K.","album":"Dear Myself (feat. Wan K.)","albumId":174605543,"duration":"3:08","cover":"liked_music_covers/174605543.jpg","artistBio":"香港粤语歌手，以市井叙事、谐趣表达和强烈地域风格闻名。","songNote":"香港传奇歌手尹光与Wan K.的跨代合作，以真切的自我独白回顾人生历程，将市井情怀与现代审美融合。"},{"index":161,"id":2065412,"title":"Chasing Rainbows","artists":["Ulrich Schnauss","Jonas Munk"],"artistText":"Ulrich Schnauss / Jonas Munk","album":"Epic","albumId":208138,"duration":"6:05","cover":"liked_music_covers/208138.jpg","artistBio":"德国电子音乐人，以梦幻合成器和细腻氛围塑造流动的电子声景。","songNote":"德国电子制作人Ulrich Schnauss与Jonas Munk的梦幻合作，以层层合成器音浪描绘追逐彩虹般的极光之旅。"},{"index":162,"id":5048430,"title":"...Passing By","artists":["Ulrich Schnauss"],"artistText":"Ulrich Schnauss","album":"Elizabethtown - Music From The Motion Picture - Vol. 2","albumId":501029,"duration":"6:38","cover":"liked_music_covers/501029.jpg","artistBio":"德国电子音乐人，以梦幻合成器和细腻氛围塑造流动的电子声景。","songNote":"Ulrich Schnauss经典专辑《A Strangely Isolated Place》中的标志性曲目，是电子/自赏融合流派的开创之作。"},{"index":163,"id":1810264557,"title":"You'll See (Live)","artists":["Tizzy Bac"],"artistText":"Tizzy Bac","album":"Tizzy Bac 20周年演唱会「铁之贝克 XX」(To Be 20)","albumId":121337291,"duration":"6:16","cover":"liked_music_covers/121337291.jpg","artistBio":"台湾独立乐队，以钢琴摇滚、文学化歌词和鲜明女声形成独特辨识度。","songNote":"Tizzy Bac经典曲目现场版，以钢琴摇滚的独特编制唱出倔强的告别与无声的坚守，是华语独立摇滚的里程碑。"},{"index":164,"id":1928741506,"title":"不再让你孤单","artists":["左小祖咒"],"artistText":"左小祖咒","album":"乌兰巴托的三个夜晚实况","albumId":75258388,"duration":"5:41","cover":"liked_music_covers/75258388.jpg","artistBio":"中国另类音乐人，以粗粝声线、观念表达和实验姿态著称。","songNote":"左小祖咒翻唱陈升经典，以沙哑粗粝的嗓音和极简的编曲，赋予这首情歌更深的沧桑与孤寂感。"},{"index":165,"id":2072623318,"title":"当阳光洒落在你脸上","artists":["Serrini"],"artistText":"Serrini","album":"当阳光洒落在你脸上","albumId":172169399,"duration":"3:51","cover":"liked_music_covers/172169399.jpg","artistBio":"香港唱作人，作品兼具流行旋律、幽默感和鲜明的个人文本。","songNote":"香港独立唱作人 Serrini 的温暖民谣，以诗意的粤语歌词和柔和吉他伴奏，描绘阳光洒落时的温柔与希望。"},{"index":166,"id":26194134,"title":"日光机场","artists":["许茹芸"],"artistText":"许茹芸","album":"日光机场","albumId":2419373,"duration":"5:19","cover":"liked_music_covers/2419373.jpg","artistBio":"华语流行女歌手，气声唱法和柔软情绪表达极具辨识度。","songNote":"许茹芸标志性「芸式唱腔」代表作之一，同名专辑主打歌，以机场比喻人生旅途中短暂的相遇与离别。"},{"index":167,"id":2028024866,"title":"没有人写歌给你过吧","artists":["白安"],"artistText":"白安","album":"好好线上演唱会LIVE全纪录","albumId":161334918,"duration":"4:59","cover":"liked_music_covers/161334918.jpg","artistBio":"台湾唱作人，声音清亮，作品在民谣、流行与电子感之间保持灵动。","songNote":"白安的治愈之作，以标志性的独特咬字和真挚旋律回应每个感到孤独的人。"},{"index":168,"id":2048173261,"title":"The Narcissist","artists":["Blur"],"artistText":"Blur","album":"The Narcissist","albumId":165811887,"duration":"4:05","cover":"liked_music_covers/165811887.jpg","artistBio":"英国 Britpop 核心乐队，兼具英伦流行旋律、讽刺气质和不断变化的风格野心。","songNote":"《The Narcissist》是 Blur 复出后备受关注的单曲，带着成熟而克制的英伦摇滚气质。"},{"index":169,"id":2021438527,"title":"R U GAE?","artists":["露波合唱团"],"artistText":"露波合唱团","album":"美丽新世界","albumId":159843560,"duration":"3:39","cover":"liked_music_covers/159843560.jpg","artistBio":"台湾独立乐队，旋律柔软，文字带有日常里的轻盈和敏感。","songNote":"露波合唱团以俏皮而直接的标题质问，将复古放克律动与现代都市青年的身份困惑巧妙碰撞。"},{"index":170,"id":316093,"title":"我给的爱","artists":["杨乃文"],"artistText":"杨乃文","album":"Silence","albumId":31319,"duration":"6:05","cover":"liked_music_covers/31319.jpg","artistBio":"台湾摇滚女声代表，冷冽声线和克制表达带来独特的都市气质。","songNote":"《我给的爱》出自杨乃文集《Silence》，该专辑助她夺得金曲奖最佳国语女演唱人奖。"},{"index":171,"id":247426,"title":"那个简·奥斯汀","artists":["姜昕"],"artistText":"姜昕","album":"温暖的房间","albumId":24786,"duration":"4:37","cover":"liked_music_covers/24786.jpg","artistBio":"中国摇滚女歌手，声音粗粝真诚，作品带有九十年代摇滚的个人锋芒。","songNote":"中国摇滚女声姜昕的经典作品，以简·奥斯汀为精神坐标，用诗意的词作书写独立女性的内心世界。"},{"index":172,"id":804994,"title":"粉雪","artists":["レミオロメン"],"artistText":"レミオロメン","album":"粉雪","albumId":79903,"duration":"5:25","cover":"liked_music_covers/79903.jpg","artistBio":"日本摇滚乐队，以朴素旋律和带画面感的季节书写被广泛记住。","songNote":"《粉雪》是 レミオロメン 的代表性冬日抒情曲，在日剧与流行文化里流传很广。"},{"index":173,"id":524148277,"title":"彩虹","artists":["上海彩虹室内合唱团"],"artistText":"上海彩虹室内合唱团","album":"彩虹","albumId":36980089,"duration":"5:09","cover":"liked_music_covers/36980089.jpg","artistBio":"中国合唱团体，擅长用现代合唱写日常、幽默和城市情绪。","songNote":"上海彩虹室内合唱团的代表作，金承志创作的合唱神曲，以磅礴人声描绘彩虹壮美，承载对逝去亲人的深切思念。"},{"index":174,"id":316077,"title":"漂着","artists":["杨乃文"],"artistText":"杨乃文","album":"应该","albumId":31318,"duration":"4:10","cover":"liked_music_covers/31318.jpg","artistBio":"台湾摇滚女声代表，冷冽声线和克制表达带来独特的都市气质。","songNote":"《漂着》出自杨乃文首张专辑《One》，以冷峻低沉的嗓音展现华语乐坛少有的暗黑摇滚气质。"},{"index":175,"id":2006762778,"title":"她的低音","artists":["右侧合流"],"artistText":"右侧合流","album":"她的低音","albumId":156582387,"duration":"3:42","cover":"liked_music_covers/156582387.jpg","artistBio":"中国独立乐队，作品在吉他流行和都市情绪之间保持清爽质感。","songNote":"右侧合流以精密的器乐对话展现她的低音——对贝斯手伙伴的致敬，在复杂节拍中流淌着温暖的情谊。"},{"index":176,"id":1807796555,"title":"温蒂公主的侍卫","artists":["告五人"],"artistText":"告五人","album":"运气来得若有似无","albumId":120954841,"duration":"4:18","cover":"liked_music_covers/120954841.jpg","artistBio":"台湾流行摇滚乐团，以男女双主唱和朗朗上口的旋律打动听众。","songNote":"告五人的国民级情歌，将小飞侠中温蒂与侍卫的关系化为温柔守护的寓言，写尽暗恋中的无怨与深情。"},{"index":177,"id":29437550,"title":"爱我","artists":["柯以敏","林志炫"],"artistText":"柯以敏 / 林志炫","album":"16个夏天 电视原声带","albumId":3022049,"duration":"4:50","cover":"liked_music_covers/3022049.jpg","artistBio":"马来西亚华语女歌手，以厚实声线和细腻情歌表达见长。","songNote":"柯以敏与林志炫的经典对唱，两位实力派唱将以极具张力的和声演绎爱情中的深情与渴望。"},{"index":178,"id":19460377,"title":"Breathe","artists":["The Prodigy"],"artistText":"The Prodigy","album":"The Fat Of The Land","albumId":1790810,"duration":"5:36","cover":"liked_music_covers/1790810.jpg","artistBio":"英国电子摇滚/Big Beat 代表，把锐利节拍、朋克能量和舞曲冲击力推到前台。","songNote":"《Breathe》是 The Prodigy 最具攻击性的代表曲之一，现场能量极强。"},{"index":179,"id":22567647,"title":"Sonnet","artists":["The Verve"],"artistText":"The Verve","album":"Urban Hymns","albumId":2066077,"duration":"4:21","cover":"liked_music_covers/2066077.jpg","artistBio":"英国另类摇滚乐队，擅长把迷幻吉他、宏大旋律和忧郁情绪融合。","songNote":"《Sonnet》出自 The Verve 的经典专辑《Urban Hymns》，旋律带有醒目的英伦抒情感。"},{"index":180,"id":1362469519,"title":"My Honest Face","artists":["Inhaler"],"artistText":"Inhaler","album":"My Honest Face","albumId":78869787,"duration":"4:34","cover":"liked_music_covers/78869787.jpg","artistBio":"爱尔兰独立摇滚乐队，延续明亮吉他摇滚与青春化舞台能量。","songNote":"爱尔兰摇滚新星 Inhaler（主唱为 U2 主唱 Bono 之子）的早期单曲，以青春躁动和流畅的吉他 riff 展现 Z 世代摇滚的真诫面孔。"},{"index":181,"id":431753107,"title":"Real Emotion","artists":["Paper Route"],"artistText":"Paper Route","album":"Real Emotion","albumId":34854455,"duration":"4:41","cover":"liked_music_covers/34854455.jpg","artistBio":"美国独立流行摇滚乐队，作品常以电子质感和宽阔副歌推动情绪。","songNote":"美国独立电子摇滚乐队Paper Route的作品，以闪耀的合成器与脉冲节拍表达真实情感在虚拟时代中的稀缺与珍贵。"},{"index":182,"id":4338895,"title":"Made Of Stone","artists":["The Stone Roses"],"artistText":"The Stone Roses","album":"The Very Best Of The Stone Roses","albumId":438145,"duration":"4:13","cover":"liked_music_covers/438145.jpg","artistBio":"曼彻斯特独立摇滚传奇，把迷幻、舞曲律动和吉他流行连成一条脉络。","songNote":"《Made Of Stone》是 The Stone Roses 早期曼彻斯特独立摇滚气质的典型切片。"},{"index":183,"id":4142615,"title":"Tour de France","artists":["Kraftwerk"],"artistText":"Kraftwerk","album":"Tour de France Soundtracks","albumId":418844,"duration":"5:13","cover":"liked_music_covers/418844.jpg","artistBio":"德国电子音乐先驱，用极简节拍和机器美学奠定现代电子乐语言。","songNote":"《Tour de France》体现了 Kraftwerk 对机械律动、运动意象和电子极简美学的迷恋。"},{"index":184,"id":528568671,"title":"It's No Good","artists":["Depeche Mode"],"artistText":"Depeche Mode","album":"DMBX6","albumId":37052794,"duration":"5:57","cover":"liked_music_covers/37052794.jpg","artistBio":"英国电子流行与暗色新浪潮代表，合成器声响和冷峻情绪影响深远。","songNote":"《It's No Good》是 Depeche Mode 后期广为人知的单曲，暗色合成器质感很鲜明。"},{"index":185,"id":21942066,"title":"Going Down","artists":["The Stone Roses"],"artistText":"The Stone Roses","album":"Made Of Stone","albumId":2016058,"duration":"2:49","cover":"liked_music_covers/2016058.jpg","artistBio":"曼彻斯特独立摇滚传奇，把迷幻、舞曲律动和吉他流行连成一条脉络。","songNote":"英国传奇摇滚乐队 The Stone Roses 的早期作品，充满 80 年代末曼彻斯特独立摇滚的生猛活力与不羁态度。"},{"index":186,"id":26905556,"title":"Omen.","artists":["The Prodigy"],"artistText":"The Prodigy","album":"Ministry of Sound: The Annual 2010","albumId":2572029,"duration":"3:29","cover":"liked_music_covers/2572029.jpg","artistBio":"英国电子摇滚/Big Beat 代表，把锐利节拍、朋克能量和舞曲冲击力推到前台。","songNote":"The Prodigy回归专辑《Invaders Must Die》中的重磅单曲，以标志性的高能量Breakbeat和嘶吼宣告锐舞精神的强势归来。"},{"index":187,"id":405311283,"title":"Everlong","artists":["Foo Fighters"],"artistText":"Foo Fighters","album":"The Colour And The Shape (Special Edition)","albumId":34530839,"duration":"4:10","cover":"liked_music_covers/34530839.jpg","artistBio":"美国摇滚乐队，以直接有力的吉他段落和体育馆级副歌著称。","songNote":"《Everlong》是 Foo Fighters 的核心代表作之一，兼具爆发力和真挚情绪。"},{"index":188,"id":21970528,"title":"Friday I'm In Love","artists":["The Cure"],"artistText":"The Cure","album":"Wish","albumId":2018083,"duration":"3:35","cover":"liked_music_covers/2018083.jpg","artistBio":"英国后朋克/哥特摇滚传奇，黑色浪漫与流行旋律同样动人。","songNote":"《Friday I'm In Love》是 The Cure 最明亮的流行单曲之一，轻快得几乎像一次反差。"},{"index":189,"id":26545178,"title":"Voodoo People","artists":["Pendulum"],"artistText":"Pendulum","album":"Remixes","albumId":2519211,"duration":"5:08","cover":"liked_music_covers/2519211.jpg","artistBio":"澳大利亚鼓打贝斯/电子摇滚乐队，以高速节拍和摇滚冲击力闻名。","songNote":"澳大利亚 Drum & Bass 乐队 Pendulum 翻混 The Prodigy 的经典曲目，以重型鼓打贝斯的能量重塑原作，引爆电音现场。"}];
+const PAGE_SIZE = 10;
+let currentArtist = "";
+let currentQuery = "";
+let currentView = "cards";
+let filteredTracks = [];
+let displayedCount = 0;
+let sentinel = null;
+let observer = null;
+const grid = document.querySelector("#grid");
+const library = document.querySelector("#library");
+const resultCount = document.querySelector("#result-count");
+const search = document.querySelector("#search");
+const chips = document.querySelector("#chips");
+
+const escapeHtml = (value) => String(value ?? "").replace(/[&<>"']/g, (char) => ({
+  "&": "&amp;",
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': "&quot;",
+  "'": "&#039;"
+}[char]));
+
+const coverMarkup = (track) => track.cover
+  ? '<img loading="lazy" src="' + escapeHtml(track.cover) + '" alt="' + escapeHtml(track.album) + '">'
+  : "";
+
+const trackMarkup = (track) => `
+  <article class="track">
+    <div class="track-cover">
+      ${coverMarkup(track)}
+      <a class="play-link" href="https://music.163.com/#/song?id=${track.id}" target="_blank" rel="noopener noreferrer" aria-label="播放 ${escapeHtml(track.title)}">播放</a>
+      <span class="track-index">${String(track.index).padStart(3, "0")}</span>
+    </div>
+    <div class="track-body">
+      <h3>${escapeHtml(track.title)}</h3>
+      <p class="meta">${escapeHtml(track.artistText)} · ${escapeHtml(track.album)} · ${escapeHtml(track.duration)}</p>
+      ${track.artistBio ? '<p class="artist-bio">' + escapeHtml(track.artistBio) + '</p>' : ''}
+      ${track.songNote ? '<p class="song-note">' + escapeHtml(track.songNote) + '</p>' : ''}
+    </div>
+  </article>`;
+
+function removeSentinel() {
+  if (sentinel) { sentinel.remove(); sentinel = null; }
+  if (observer) { observer.disconnect(); observer = null; }
+}
+
+function addSentinel() {
+  removeSentinel();
+  if (displayedCount >= filteredTracks.length) return;
+  sentinel = document.createElement("div");
+  sentinel.className = "sentinel";
+  sentinel.style.cssText = "height:1px;grid-column:1/-1";
+  grid.appendChild(sentinel);
+  observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) loadMore();
+  }, { rootMargin: "300px" });
+  observer.observe(sentinel);
+}
+
+function loadMore() {
+  if (currentView === "list") return;
+  const next = Math.min(displayedCount + PAGE_SIZE, filteredTracks.length);
+  if (next <= displayedCount) { removeSentinel(); return; }
+  const html = filteredTracks.slice(displayedCount, next).map(trackMarkup).join("");
+  removeSentinel();
+  grid.insertAdjacentHTML("beforeend", html);
+  displayedCount = next;
+  addSentinel();
+}
+
+function render(reset) {
+  if (reset) removeSentinel();
+  const query = currentQuery.trim().toLowerCase();
+  filteredTracks = tracks.filter((track) => {
+    const haystack = [track.title, track.artistText, track.album, track.artistBio, track.songNote].join(" ").toLowerCase();
+    return (!currentArtist || track.artists.includes(currentArtist)) && (!query || haystack.includes(query));
+  });
+  if (currentView === "list") {
+    displayedCount = filteredTracks.length;
+    grid.innerHTML = filteredTracks.map(trackMarkup).join("");
+  } else {
+    displayedCount = Math.min(PAGE_SIZE, filteredTracks.length);
+    grid.innerHTML = filteredTracks.slice(0, displayedCount).map(trackMarkup).join("");
+    addSentinel();
+  }
+  resultCount.textContent = filteredTracks.length + " 首";
+  library.classList.toggle("no-results", filteredTracks.length === 0);
+  document.body.classList.toggle("list", currentView === "list");
+}
+
+search.addEventListener("input", (event) => {
+  currentQuery = event.target.value;
+  render(true);
+});
+
+chips.addEventListener("click", (event) => {
+  const button = event.target.closest("button");
+  if (!button) return;
+  currentArtist = button.dataset.artist || "";
+  chips.querySelectorAll("button").forEach((chip) => chip.classList.toggle("active", chip === button));
+  render(true);
+});
+
+document.querySelector(".view-toggle").addEventListener("click", (event) => {
+  const button = event.target.closest("button");
+  if (!button) return;
+  currentView = button.dataset.view;
+  document.querySelectorAll(".view-toggle button").forEach((item) => item.classList.toggle("active", item === button));
+  render(true);
+});
+
+render();
+</script>
+</body>
+</html>

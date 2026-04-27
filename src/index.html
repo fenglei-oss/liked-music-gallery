@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OpenClaw Console</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="config-panel">
+        <div class="panel-head">
+          <p class="eyebrow">Desktop Console</p>
+          <h1>OpenClaw 控制台</h1>
+          <p class="muted">直接读取本机 OpenClaw 配置、日志和 session 记录，查看运行状态、切换模型并重启网关。</p>
+        </div>
+
+        <form id="config-form" class="config-form">
+          <label>
+            <span>OpenClaw 配置文件</span>
+            <input id="openclawConfigPath" name="openclawConfigPath" placeholder="~/.openclaw/openclaw.json" />
+          </label>
+
+          <label>
+            <span>OpenClaw 根目录</span>
+            <input id="openclawRootDir" name="openclawRootDir" placeholder="~/.openclaw" />
+          </label>
+
+          <label>
+            <span>刷新间隔(ms)</span>
+            <input id="refreshIntervalMs" name="refreshIntervalMs" type="number" min="1000" step="1000" />
+          </label>
+
+          <details class="endpoint-box">
+            <summary>运行命令路径</summary>
+
+            <label>
+              <span>OpenClaw CLI</span>
+              <input id="openclawCliPath" name="openclawCliPath" />
+            </label>
+            <label>
+              <span>OpenClaw 安装 package.json</span>
+              <input id="openclawPackagePath" name="openclawPackagePath" />
+            </label>
+          </details>
+
+          <button class="primary" type="submit">保存配置</button>
+        </form>
+      </aside>
+
+      <main class="dashboard">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Runtime Overview</p>
+            <h2>当前运行状态</h2>
+          </div>
+          <div class="actions">
+            <button id="refresh-btn" class="ghost">立即刷新</button>
+            <button id="restart-btn" class="warn">重启网关</button>
+          </div>
+        </header>
+
+        <section class="cards">
+          <article class="card accent">
+            <p class="card-title">版本号</p>
+            <strong id="version-value" class="metric">-</strong>
+            <span class="hint" id="updated-at">等待读取本机数据</span>
+          </article>
+
+          <article class="card">
+            <p class="card-title">网关状态</p>
+            <strong id="gateway-value" class="metric">-</strong>
+            <span class="hint" id="gateway-latency">延迟 -</span>
+          </article>
+
+          <article class="card">
+            <p class="card-title">Agent 状态</p>
+            <strong id="agent-value" class="metric">-</strong>
+            <span class="hint" id="agent-meta">等待数据</span>
+          </article>
+
+          <article class="card accent-soft">
+            <p class="card-title">当前模型</p>
+            <strong id="current-model" class="metric small">-</strong>
+            <span class="hint" id="model-provider">等待数据</span>
+          </article>
+        </section>
+
+        <section class="lower-grid">
+          <article class="panel">
+            <div class="panel-row">
+              <div>
+                <p class="eyebrow">Model Switch</p>
+                <h3>切换已配置模型</h3>
+              </div>
+            </div>
+            <div class="model-switch">
+              <select id="model-select"></select>
+              <button id="switch-model-btn" class="primary">切换模型</button>
+            </div>
+            <div id="model-list" class="model-list"></div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-row">
+              <div>
+                <p class="eyebrow">Usage</p>
+                <h3>Token 消耗统计</h3>
+              </div>
+            </div>
+            <div class="usage-grid">
+              <div class="usage-card">
+                <span>输入 Tokens</span>
+                <strong id="input-tokens">0</strong>
+              </div>
+              <div class="usage-card">
+                <span>输出 Tokens</span>
+                <strong id="output-tokens">0</strong>
+              </div>
+              <div class="usage-card">
+                <span>总 Tokens</span>
+                <strong id="total-tokens">0</strong>
+              </div>
+              <div class="usage-card">
+                <span>请求次数</span>
+                <strong id="requests-count">0</strong>
+              </div>
+            </div>
+            <p class="hint" id="usage-period">统计周期: -</p>
+          </article>
+        </section>
+
+        <section class="chat-section">
+          <article class="panel chat-panel">
+            <div class="panel-row">
+              <div>
+                <p class="eyebrow">DeepSeek Chat</p>
+                <h3>DeepSeek 对话</h3>
+              </div>
+              <div class="chat-controls">
+                <select id="chat-model-select">
+                  <option value="deepseek-chat">DeepSeek V3</option>
+                  <option value="deepseek-reasoner">DeepSeek R1</option>
+                </select>
+                <button id="clear-chat-btn" class="ghost">清空对话</button>
+              </div>
+            </div>
+            <div id="chat-messages" class="chat-messages"></div>
+            <div class="chat-input-area">
+              <textarea id="chat-input" placeholder="输入消息，按 Enter 发送..." rows="2"></textarea>
+              <button id="send-btn" class="primary">发送</button>
+            </div>
+          </article>
+        </section>
+
+        <footer class="statusbar">
+          <span id="connection-status">尚未连接</span>
+          <span id="action-status">等待操作</span>
+        </footer>
+      </main>
+    </div>
+
+    <script src="./renderer.js"></script>
+  </body>
+  </html>
