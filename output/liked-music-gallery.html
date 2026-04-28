@@ -334,7 +334,7 @@ button, input { font: inherit; }
   color: #fffdf7;
   font-size: 13px;
 }
-.track-body { padding: 16px 16px 18px; flex: 1; display: flex; flex-direction: column; }
+.track-body { padding: 16px 16px 12px; flex: 1; display: flex; flex-direction: column; }
 .track h3 { margin: 0; font-size: 22px; line-height: 1.18; overflow-wrap: anywhere; }
 .meta { margin: 9px 0 0; color: var(--muted); line-height: 1.45; }
 .artist-bio { margin: 12px 0 0; line-height: 1.65; color: var(--moss); font-size: 13px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -342,43 +342,8 @@ button, input { font: inherit; }
 .song-note:hover { -webkit-line-clamp: unset; overflow: visible; background: rgba(134,169,156,.2); z-index: 2; box-shadow: 0 8px 24px rgba(59,68,63,.15); }
 .song-note::after { content: ""; position: absolute; right: 8px; bottom: 4px; width: 28px; height: 18px; background: linear-gradient(90deg, transparent, rgba(134,169,156,.1) 60%); pointer-events: none; }
 .song-note:hover::after { display: none; }
-.play-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  min-height: 34px;
-  padding: 0 12px 0 10px;
-  border: 1px solid rgba(255, 253, 247, .72);
-  border-radius: 999px;
-  background: rgba(255, 253, 247, .86);
-  color: #24302f;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 700;
-  box-shadow: 0 10px 24px rgba(20, 26, 24, .18);
-  backdrop-filter: blur(12px);
-  transition: transform .16s ease, background .16s ease, color .16s ease;
-}
-.track-cover .play-link {
-  position: absolute;
-  left: 12px;
-  bottom: 10px;
-  z-index: 2;
-}
-.play-link::before {
-  content: "▶";
-  font-size: 11px;
-  line-height: 1;
-}
-.play-link:hover {
-  transform: translateY(-1px);
-  background: var(--moss);
-  color: #fffdf7;
-}
-.play-link:focus-visible {
-  outline: 3px solid rgba(217, 120, 95, .34);
-  outline-offset: 3px;
-}
+.player-wrap { padding: 0 6px 8px; }
+.player-frame { width: 100%; height: 66px; border: 0; border-radius: 12px; overflow: hidden; }
 .list .grid { display: flex; flex-direction: column; gap: 9px; }
 .list .track {
   display: grid;
@@ -386,6 +351,7 @@ button, input { font: inherit; }
   align-items: center;
   border-radius: 18px;
   box-shadow: none;
+  gap: 0 8px;
 }
 .list .track-cover { width: 74px; height: 74px; aspect-ratio: auto; }
 .list .track-cover::after { display: none; }
@@ -398,17 +364,8 @@ button, input { font: inherit; }
 .list .track h3 { font-size: 18px; }
 .list .artist-bio { display: none; }
 .list .song-note { display: none; }
-.list .play-link {
-  left: 7px;
-  bottom: 7px;
-  min-height: 26px;
-  padding: 0 9px 0 8px;
-  font-size: 0;
-  gap: 0;
-}
-.list .play-link::before {
-  font-size: 10px;
-}
+.list .player-wrap { grid-column: 4; padding: 8px; }
+.list .player-frame { width: 220px; height: 52px; }
 .empty {
   display: none;
   padding: 54px 20px;
@@ -514,7 +471,6 @@ const trackMarkup = (track) => `
   <article class="track">
     <div class="track-cover">
       ${coverMarkup(track)}
-      <a class="play-link" href="https://music.163.com/#/song?id=${track.id}" target="_blank" rel="noopener noreferrer" aria-label="播放 ${escapeHtml(track.title)}">播放</a>
       <span class="track-index">${String(track.index).padStart(3, "0")}</span>
     </div>
     <div class="track-body">
@@ -522,6 +478,9 @@ const trackMarkup = (track) => `
       <p class="meta">${escapeHtml(track.artistText)} · ${escapeHtml(track.album)} · ${escapeHtml(track.duration)}</p>
       ${track.artistBio ? '<p class="artist-bio">' + escapeHtml(track.artistBio) + '</p>' : ''}
       ${track.songNote ? '<p class="song-note">' + escapeHtml(track.songNote) + '</p>' : ''}
+    </div>
+    <div class="player-wrap">
+      <iframe class="player-frame" src="https://music.163.com/outchain/player?type=2&id=${track.id}&auto=0&height=66" frameborder="0" width="100%" height="66" loading="lazy" allow="autoplay"></iframe>
     </div>
   </article>`;
 
